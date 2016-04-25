@@ -1,6 +1,6 @@
-package spot;
+package map;
 
-import ui.Icon;
+import ui.SpotIcon;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -8,6 +8,6 @@ import ui.Icon;
 public class BankSpot extends AbstractSpot {
 
     public BankSpot(int id, String name) {
-        super(id, name, new Icon(SpotType.BankSpot));
+        super(id, name, new SpotIcon(Type.BANK));
     }
 }

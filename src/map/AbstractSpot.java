@@ -1,6 +1,7 @@
-package spot;
+package map;
 
 import ui.*;
+
 
 /**
  * Created by freemso on 2016/4/12.
@@ -8,13 +9,17 @@ import ui.*;
 public abstract class AbstractSpot {
     private int id;
     private String name;
-    private Icon icon;
+    private SpotIcon icon;
     private int barricadeNum;
 
-    public AbstractSpot(int id, String name, Icon icon) {
+    protected AbstractSpot(int id, String name, SpotIcon icon) {
         this.id = id;
         this.name = name;
         this.icon = icon;
+    }
+
+    public enum Type {
+        BANK, GROUND, HOUSE, LOTTERY, NEWS, CARD, TICKET, STORE
     }
 
     public int getId() {
@@ -25,11 +30,11 @@ public abstract class AbstractSpot {
         return name;
     }
 
-    public Icon getIcon() {
+    public SpotIcon getIcon() {
         return icon;
     }
 
-    public void setIcon(Icon icon) {
+    public void setIcon(SpotIcon icon) {
         this.icon = icon;
     }
 

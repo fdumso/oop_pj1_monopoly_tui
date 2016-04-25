@@ -7,7 +7,7 @@ public abstract class AbstractCard {
     private String name;
     private int price;
 
-    public AbstractCard(String name, int price) {
+    protected AbstractCard(String name, int price) {
         this.name = name;
         this.price = price;
     }

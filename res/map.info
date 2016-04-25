@@ -1,0 +1,17 @@
+中国农业银行
+光华楼 1000
+计算中心    500
+科学楼 600
+逸夫楼 700
+遗传楼 400, 0, "光华大道"), //5
+    	new LotteryShop("北区彩票店"), new Building("北区食堂", 600, 1, "北苑"), new Building("北区小花园", 400, 1, "北苑"), new Building("北区浴室", 200, 1, "北苑"), new Building("北区学生公寓", 800, 1, "北苑"), //10
+    	new NewsPoint("本部大新闻"), new Building("现代物理所", 300, 2, "自科大道"), new Building("立人生物楼", 400, 2, "自科大道"), new Building("化学楼", 500, 2, "自科大道"), new Building("恒隆物理楼", 600, 2, "自科大道"), //15
+    	new GetAPropPoint("本部赠送卡片点"),new Building("逸夫科技楼", 600, 3, "日月大道"), new Building("三教", 300, 3, "日月大道"), new Building("二教", 300, 3, "日月大道"), new Building("曦园", 500, 3, "日月大道"), //20
+    	new GetTicketsPoint("赠送点券①号点"), new GetTicketsPoint("赠送点券②号点"), new GetTicketsPoint("赠送点券③号点"), new GetTicketsPoint("赠送点券④号点"), new GetTicketsPoint("赠送点券⑤号点"), //25
+    	new PropShop("本部道具店"), new Building("理科图书馆", 700, 4, "邯郸西路"), new Building("一教", 300, 4, "邯郸西路"), new Building("子斌院", 500, 4, "邯郸西路"), new Building("相辉堂", 800, 4, "邯郸西路"),//30
+    	new BlankPoint("相草大空地"),  new Building("校医院", 900, 5, "南北大道"), new Building("燕园", 500, 5, "南北大道"), new Building("皇冠假日酒店", 700, 5, "南北大道"), new Building("复华科技楼", 400, 5, "南北大道"), new Building("正大体育馆", 800, 5, "南北大道"), //36
+    	new LotteryShop("南区彩票店"), new Building("游泳馆", 500, 6, "文体路"), new Building("田径场", 300, 6, "文体路"), new Building("南区食堂", 600, 6, "文体路"), new Building("南区学生活动中心", 500, 6, "文体路"), //41
+    	new NewsPoint("南区大新闻"), new Building("南区浴室", 200, 7, "南苑"), new Building("南区学生公寓", 800, 7, "南苑"), new Building("六教", 300, 7, "南苑"), new Building("五教", 300, 7, "南苑"), //46
+    	new GetAPropPoint("南区赠送卡片点"), new Building("文科图书馆", 800, 8, "东南大道"), new Building("李达三楼", 400, 8, "东南大道"), new Building("卿云楼", 300, 8, "东南大道"), new Building("屠海鸣图书馆", 600, 8, "东南大道"), //51
+    	new GetTicketsPoint("赠送点券⑥号点"), new GetTicketsPoint("赠送点券⑦号点"), new GetTicketsPoint("赠送点券⑧号点"), new GetTicketsPoint("赠送点券⑨号点"), new GetTicketsPoint("赠送点券⑩号点"), //56
+    	new PropShop("东区道具店"), new Building("东区艺教中心", 500, 9, "东苑"), new Building("东区浴室", 200, 9, "东苑"), new Building("东区学生公寓", 700, 9, "东苑"), new Building("旦苑餐厅", 600, 9, "东苑")
