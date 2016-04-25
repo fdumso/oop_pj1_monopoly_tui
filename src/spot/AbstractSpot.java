@@ -1,17 +1,17 @@
-package kernel;
+package spot;
 
 import ui.*;
 
 /**
  * Created by freemso on 2016/4/12.
  */
-public abstract class Spot {
+public abstract class AbstractSpot {
     private int id;
     private String name;
     private Icon icon;
     private int barricadeNum;
 
-    public Spot(int id, String name, Icon icon) {
+    public AbstractSpot(int id, String name, Icon icon) {
         this.id = id;
         this.name = name;
         this.icon = icon;

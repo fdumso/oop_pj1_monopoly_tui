@@ -1,5 +1,3 @@
-package kernel;
-
 /**
  * Created by freemso on 2016/4/25.
  */
