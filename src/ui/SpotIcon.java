@@ -1,6 +1,6 @@
 package ui;
 
-import map.AbstractSpot;
+import kernel.map.AbstractSpot;
 
 /**
  * Created by freemso on 2016/4/25.

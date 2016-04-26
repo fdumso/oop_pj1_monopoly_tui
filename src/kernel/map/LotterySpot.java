@@ -1,4 +1,4 @@
-package map;
+package kernel.map;
 
 import ui.SpotIcon;
 

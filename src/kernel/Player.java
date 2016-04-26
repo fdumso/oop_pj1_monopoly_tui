@@ -1,5 +1,7 @@
-import card.AbstractCard;
-import map.HouseSpot;
+package kernel;
+
+import kernel.card.AbstractCard;
+import kernel.map.HouseSpot;
 import ui.*;
 
 import java.util.ArrayList;

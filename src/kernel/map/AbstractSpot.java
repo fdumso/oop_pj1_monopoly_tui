@@ -1,6 +1,9 @@
-package map;
+package kernel.map;
 
+import kernel.Player;
 import ui.*;
+
+import java.util.ArrayList;
 
 
 /**
@@ -11,6 +14,7 @@ public abstract class AbstractSpot {
     private String name;
     private SpotIcon icon;
     private int barricadeNum;
+    private ArrayList<Player> containedPlayerList;
 
     protected AbstractSpot(int id, String name, SpotIcon icon) {
         this.id = id;
@@ -44,5 +48,13 @@ public abstract class AbstractSpot {
 
     public void addBarricade() {
         barricadeNum++;
+    }
+
+    public AbstractIcon printIcon() {
+        if (containedPlayerList.isEmpty()) {
+            return icon;
+        } else {
+            return containedPlayerList.get(containedPlayerList.size() - 1).getIcon();
+        }
     }
 }
