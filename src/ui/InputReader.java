@@ -9,11 +9,11 @@ import java.util.Scanner;
 public class InputReader {
     private Scanner input;
 
-    public InputReader() {
+    InputReader() {
         input = new Scanner(System.in);
     }
 
-    public int readInt() {
+    int readInt() {
         do {
             try {
                 return input.nextInt();
@@ -24,14 +24,14 @@ public class InputReader {
         } while (true);
     }
 
-    public int readInt(int l, int g) {
+    int readInt(int l, int g) {
         do {
             try {
                 int read = input.nextInt();
                 if (read >= l && read <= g) {
                     return read;
                 } else {
-                    System.out.print("错误！不在范围内");
+                    System.out.print("错误！大小不在范围内");
                 }
             } catch (InputMismatchException e) {
                 System.out.print("错误！需要一个整数");
@@ -40,7 +40,7 @@ public class InputReader {
         } while (true);
     }
 
-    public double readDouble() {
+    double readDouble() {
         do {
             try {
                 return input.nextDouble();
@@ -51,7 +51,7 @@ public class InputReader {
         } while (true);
     }
 
-    public boolean confirm() {
+    boolean confirm() {
         do {
             try {
                 String s = input.nextLine();
@@ -66,6 +66,26 @@ public class InputReader {
             } catch (InputMismatchException e) {
                 System.out.print("错误！需要Y/N");
                 input.nextLine();
+            }
+        } while (true);
+    }
+
+    String readString() {
+        return input.nextLine();
+    }
+
+    String readString(int l, int g) {
+        do {
+            try {
+                String s = input.nextLine();
+                int length = s.length();
+                if (length >= l && length <= g) {
+                    return s;
+                } else {
+                    throw new InputMismatchException();
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("错误！长度不在范围内");
             }
         } while (true);
     }

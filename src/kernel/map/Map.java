@@ -8,13 +8,13 @@ import java.util.Scanner;
 /**
  * Created by freemso on 2016/4/26.
  */
-public class MapLogic {
+public class Map {
     private final String spotDataFilePath = "res/spot.data";
     private final String streetDataFilePath = "res/street.data";
     private ArrayList<AbstractSpot> spotList;
     private ArrayList<Street> streetList;
 
-    public MapLogic() {
+    public Map() {
         loadStreetData();
         loadSpotData();
     }
