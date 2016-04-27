@@ -2,23 +2,22 @@ package ui;
 
 import kernel.Game;
 import kernel.Player;
+import kernel.map.Map;
+
 
 /**
- * Created by freemso on 2016/4/25.
+ * Created by freemso on 2016/4/27.
  */
-public class TerminalGame {
-    private final double originalCash = 2000;
-    private final double originalDeposit = 2000;
-    private final int originalTicket = 10;
-    private Game game;
+public class TerminalUI implements IGameUI {
     private InputReader inputReader;
+    private Game game;
 
-
-    public TerminalGame() {
-        inputReader = new InputReader();
-        game = new Game();
+    public TerminalUI(Game game) {
+        this.inputReader = new InputReader();
+        this.game = game;
     }
 
+    @Override
     public void init() {
         // init player
         System.out.print("请选择玩家个数：（ 2 - 4 ）");
@@ -26,25 +25,124 @@ public class TerminalGame {
         for (int i = 0; i < playerNumber; i++) {
             System.out.print("请输入玩家 " + i + " 的昵称：");
             String playerName = inputReader.readString(0, 10);
-            Player player = new Player(i, playerName, 0, Player.Direction.CLOCKWISE, originalCash, originalDeposit, originalTicket);
+            Player player = new Player(i, playerName, 0, Player.Direction.CLOCKWISE, game.getOriginalCash(), game.getOriginalDeposit(), game.getOriginalTicket());
             game.addPlayer(player);
         }
-
         // init total rounds number
         System.out.print("请输入总回合数：");
         int totalRoundsNum = inputReader.readInt(0, 365);
         game.setTotalRoundsNum(totalRoundsNum);
-        // start main circle
-        main();
-
-    }
-
-    public void main() {
-
+        // announce the game
         System.out.println("==========游戏开始==========");
+        inputReader.enter();
     }
 
-    public void printOriginalMap() {
+    @Override
+    public void startRound() {
+        System.out.println("今天是: " + game.getTimeSystem().printDate());
+    }
+
+    @Override
+    public void endRound() {
+
+    }
+
+    @Override
+    public void playerStart(int playerId) {
+        Player player = game.getPlayerList().get(playerId);
+        Map map = game.getMap();
+        System.out.print("现在是玩家："
+                + player.getName()
+                + " 的操作时间\n"
+                + "现在的位置是： "
+                + map.getSpotList().get(player.getPosition()).getName()
+                + " ，前进方向为："
+                + player.printDirection() + " 。\n");
+    }
+
+    @Override
+    public void playerEnd(int playerId) {
+
+    }
+
+    @Override
+    public void main(int playerId) {
+        inputReader.enter();
+        System.out.print("现在可以执行如下操作：\n" + "0 - 查看地图\n"
+                + "1 - 查看原始地图\n" + "2 - 使用道具\n" + "3 - 前方十步内示警\n"
+                + "4 - 查看前后指定步数的具体信息\n" + "5 - 查看玩家的资产信息\n"
+                + "6 - 想看的都看了，心满意足地掷骰子\n" + "7 - 不玩了！认输！\n"
+                + "8 - 存档\n" + "请选择：");
+        int operationId = inputReader.readInt(0, 8);
+        switch (operationId) {
+            case 0: {
+                // print current map
+                printCurrentMap();
+                main(playerId);
+                break;
+            }
+            case 1: {
+                // print original map
+                printOriginalMap();
+                main(playerId);
+                break;
+            }
+            case 2: {
+                // use cards
+                useCard(playerId);
+                main(playerId);
+                break;
+            }
+            case 3: {
+                // show warning
+
+            }
+        }
+    }
+
+    @Override
+    public void useCard(int playerId) {
+        // TO DO
+
+    }
+
+    @Override
+    public void warning(int playerId) {
+
+    }
+
+    @Override
+    public void checkSpot() {
+
+    }
+
+    @Override
+    public void checkPlayer() {
+
+    }
+
+    @Override
+    public void rollDice() {
+
+    }
+
+    @Override
+    public void concede(int playerId) {
+
+    }
+
+    @Override
+    public void gameOver() {
+
+    }
+
+    @Override
+    public void move(int playerId, int steps) {
+
+    }
+
+    /* Private Method*/
+    private void printOriginalMap() {
         System.out.print("               " + game.getMap().getSpotList().get(0).getIcon() + " " + game.getMap().getSpotList().get(1).getIcon() + " " + game.getMap().getSpotList().get(2).getIcon() + " " + game.getMap().getSpotList().get(3).getIcon() + " " + game.getMap().getSpotList().get(4).getIcon() + " " + game.getMap().getSpotList().get(5).getIcon() + " " + game.getMap().getSpotList().get(6).getIcon() + "\n\n"
                 + "               " + game.getMap().getSpotList().get(61).getIcon() + " " + "               " + game.getMap().getSpotList().get(7).getIcon() + " " + "\n\n"
                 + "               " + game.getMap().getSpotList().get(60).getIcon() + " " + "               " + game.getMap().getSpotList().get(8).getIcon() + " " + "\n\n"
@@ -64,7 +162,7 @@ public class TerminalGame {
         );
     }
 
-    public void printCurrentMap() {
+    private void printCurrentMap() {
         System.out.print("               " + game.getMap().getSpotList().get(0).printIcon() + " " + game.getMap().getSpotList().get(1).printIcon() + " " + game.getMap().getSpotList().get(2).printIcon() + " " + game.getMap().getSpotList().get(3).printIcon() + " " + game.getMap().getSpotList().get(4).printIcon() + " " + game.getMap().getSpotList().get(5).printIcon() + " " + game.getMap().getSpotList().get(6).printIcon() + "\n\n"
                 + "               " + game.getMap().getSpotList().get(61).printIcon() + " " + "               " + game.getMap().getSpotList().get(7).printIcon() + " " + "\n\n"
                 + "               " + game.getMap().getSpotList().get(60).printIcon() + " " + "               " + game.getMap().getSpotList().get(8).printIcon() + " " + "\n\n"

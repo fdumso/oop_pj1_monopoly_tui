@@ -13,6 +13,10 @@ public class InputReader {
         input = new Scanner(System.in);
     }
 
+    void enter() {
+        input.nextLine();
+    }
+
     int readInt() {
         do {
             try {

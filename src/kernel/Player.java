@@ -32,9 +32,18 @@ public class Player {
     }
 
     public enum  Direction {
-        CLOCKWISE, COUNTERCLOCKWISE
+        CLOCKWISE, COUNTERCLOCKWISE;
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case CLOCKWISE: return "顺时针";
+                default: return "逆时针";
+            }
+        }
     }
 
+    /* Read Method*/
     public int getId() {
         return id;
     }
@@ -67,6 +76,10 @@ public class Player {
         return direction;
     }
 
+    public String printDirection() {
+        return direction.toString();
+    }
+
     public ArrayList<HouseSpot> getHouseList() {
         return houseList;
     }
@@ -74,6 +87,8 @@ public class Player {
     public ArrayList<AbstractCard> getCardList() {
         return cardList;
     }
+
+    /* Write Method*/
 
     public void setIcon(PlayerIcon icon) {
         this.icon = icon;
