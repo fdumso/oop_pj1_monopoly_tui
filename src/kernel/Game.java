@@ -57,24 +57,8 @@ public class Game {
         return playerList;
     }
 
-    public int getTotalRoundsNum() {
-        return totalRoundsNum;
-    }
-
     public Map getMap() {
         return map;
-    }
-
-    public double getOriginalCash() {
-        return originalCash;
-    }
-
-    public double getOriginalDeposit() {
-        return originalDeposit;
-    }
-
-    public int getOriginalTicket() {
-        return originalTicket;
     }
 
     /* Write Method*/
@@ -83,7 +67,30 @@ public class Game {
         this.totalRoundsNum = totalRoundsNum;
     }
 
-    public void addPlayer(Player player) {
+    public void addPlayer(int playerId, String playerName) {
+        Player player = new Player(playerId, playerName, 0, Player.Direction.CLOCKWISE,
+                originalCash, originalDeposit, originalTicket);
         playerList.add(player);
+    }
+
+    class Dice {
+        private int point;
+        private boolean isControlled;
+
+        int roll() {
+            if (!isControlled) {
+                point = (int) (Math.random() * 6 + 1);
+            }
+            return point;
+        }
+
+        public int getPoint() {
+            return point;
+        }
+
+        public void setPoint(int point) {
+            isControlled = true;
+            this.point = point;
+        }
     }
 }

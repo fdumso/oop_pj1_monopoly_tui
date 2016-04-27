@@ -8,6 +8,6 @@ import ui.SpotIcon;
 public class BankSpot extends AbstractSpot {
 
     public BankSpot(int id, String name) {
-        super(id, name, new SpotIcon(Type.BANK));
+        super(id, name, Type.BANK);
     }
 }

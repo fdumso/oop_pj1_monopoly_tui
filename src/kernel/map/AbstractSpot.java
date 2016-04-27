@@ -15,16 +15,20 @@ public abstract class AbstractSpot {
     private SpotIcon icon;
     private int barricadeNum;
     private ArrayList<Player> containedPlayerList;
+    private Type type;
 
-    protected AbstractSpot(int id, String name, SpotIcon icon) {
+    protected AbstractSpot(int id, String name, Type type) {
         this.id = id;
         this.name = name;
-        this.icon = icon;
+        this.type = type;
+        this.icon = new SpotIcon(type);
     }
 
     public enum Type {
-        BANK, GROUND, HOUSE, LOTTERY, NEWS, CARD, TICKET, STORE
+        BANK, EMPTY, HOUSE, LOTTERY, NEWS, CARD, TICKET, STORE
     }
+
+    /* Read Method */
 
     public int getId() {
         return id;
@@ -38,16 +42,12 @@ public abstract class AbstractSpot {
         return icon;
     }
 
-    public void setIcon(SpotIcon icon) {
-        this.icon = icon;
+    public Type getType() {
+        return type;
     }
 
     public boolean hasBarricade() {
         return barricadeNum != 0;
-    }
-
-    public void addBarricade() {
-        barricadeNum++;
     }
 
     public AbstractIcon printIcon() {
@@ -56,5 +56,14 @@ public abstract class AbstractSpot {
         } else {
             return containedPlayerList.get(containedPlayerList.size() - 1).getIcon();
         }
+    }
+
+    /* Write Method */
+    public void setIcon(SpotIcon icon) {
+        this.icon = icon;
+    }
+
+    public void addBarricade() {
+        barricadeNum++;
     }
 }

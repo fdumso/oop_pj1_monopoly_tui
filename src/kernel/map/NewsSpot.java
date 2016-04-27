@@ -7,6 +7,6 @@ import ui.SpotIcon;
  */
 public class NewsSpot extends AbstractSpot {
     public NewsSpot(int id, String name) {
-        super(id, name, new SpotIcon(Type.NEWS));
+        super(id, name, Type.NEWS);
     }
 }

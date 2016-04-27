@@ -20,9 +20,9 @@ public interface IGameUI {
 
     void warning(int playerId);
 
-    void checkSpot();
+    void showSpotInfo(int playerId);
 
-    void checkPlayer();
+    void showPlayerInfo();
 
     void rollDice();
 

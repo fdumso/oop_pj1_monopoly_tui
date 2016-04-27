@@ -27,4 +27,6 @@ public abstract class AbstractCard {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public abstract boolean event();
 }

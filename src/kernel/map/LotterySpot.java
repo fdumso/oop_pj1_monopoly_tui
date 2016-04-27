@@ -7,6 +7,6 @@ import ui.SpotIcon;
  */
 public class LotterySpot extends AbstractSpot {
     public LotterySpot(int id, String name) {
-        super(id, name, new SpotIcon(Type.LOTTERY));
+        super(id, name, Type.LOTTERY);
     }
 }

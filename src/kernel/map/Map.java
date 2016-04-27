@@ -15,11 +15,18 @@ public class Map {
     private ArrayList<Street> streetList;
 
     public Map() {
-        loadStreetData();
-        loadSpotData();
-    }
-
-    private void loadSpotData() {
+        // load street data
+        try {
+            Scanner fileReader = new Scanner(new File(streetDataFilePath));
+            while (fileReader.hasNext()) {
+                String[] line = fileReader.nextLine().split("\t");
+                Street street = new Street(Integer.parseInt(line[0]), line[1]);
+                streetList.add(street);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.print("Street data not found!");
+        }
+        // load spot data
         try {
             Scanner fileReader = new Scanner(new File(spotDataFilePath));
             while (fileReader.hasNext()) {
@@ -32,7 +39,7 @@ public class Map {
                         int streetId = Integer.parseInt(line[3]);
                         AbstractSpot house = new HouseSpot(spotList.size(), spotName, housePrice, streetId);
                         spotList.add(house);
-                        streetList.get(streetId).addSpot(house);
+                        streetList.get(streetId).addSpot((HouseSpot) house);
                         break;
                     }
                     case 1: spotList.add(new BankSpot(spotList.size(), spotName));
@@ -56,31 +63,14 @@ public class Map {
         }
     }
 
-    private void loadStreetData() {
-        try {
-            Scanner fileReader = new Scanner(new File(streetDataFilePath));
-            while (fileReader.hasNext()) {
-                String[] line = fileReader.nextLine().split("\t");
-                Street street = new Street(Integer.parseInt(line[0]), line[1]);
-                streetList.add(street);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.print("Street data not found!");
-        }
-    }
-
-    public ArrayList<AbstractSpot> getSpotList() {
-        return spotList;
-    }
-
-    public ArrayList<Street> getStreetList() {
-        return streetList;
+    public AbstractSpot getSpot(int spotId) {
+        return spotList.get(spotId % spotList.size());
     }
 
     private class Street {
         private int id;
         private String name;
-        private ArrayList<AbstractSpot> spotList;
+        private ArrayList<HouseSpot> spotList;
 
         Street(int id, String name) {
             this.id = id;
@@ -95,12 +85,20 @@ public class Map {
             return name;
         }
 
-        public ArrayList<AbstractSpot> getSpotList() {
-            return spotList;
+        void addSpot(HouseSpot spot) {
+            spotList.add(spot);
         }
 
-        public void addSpot(AbstractSpot spot) {
-            spotList.add(spot);
+        public double calcSurcharge(int playerId) {
+            double surcharge = 0;
+            for (HouseSpot spot: spotList) {
+                if (spot.getOwnerId() != playerId) {
+                    return 0;
+                } else {
+                    surcharge += spot.calcToll();
+                }
+            }
+            return surcharge;
         }
     }
 

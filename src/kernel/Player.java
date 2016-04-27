@@ -23,6 +23,7 @@ public class Player {
 
     public Player(int id, String name, int position, Direction direction, double cash, double deposit, int ticket) {
         this.id = id;
+        this.icon = new PlayerIcon(id);
         this.name = name;
         this.position = position;
         this.direction = direction;
@@ -41,8 +42,8 @@ public class Player {
                 default: return "逆时针";
             }
         }
-    }
 
+    }
     /* Read Method*/
     public int getId() {
         return id;
@@ -76,8 +77,16 @@ public class Player {
         return direction;
     }
 
-    public String printDirection() {
-        return direction.toString();
+    public double getCapital() {
+        return cash + deposit + getHouseValue();
+    }
+
+    public double getHouseValue() {
+        double houseValue = 0;
+        for (HouseSpot house: houseList) {
+            houseValue += house.calcPrice();
+        }
+        return houseValue;
     }
 
     public ArrayList<HouseSpot> getHouseList() {
@@ -87,6 +96,7 @@ public class Player {
     public ArrayList<AbstractCard> getCardList() {
         return cardList;
     }
+
 
     /* Write Method*/
 

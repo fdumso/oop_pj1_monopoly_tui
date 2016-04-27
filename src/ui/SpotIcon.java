@@ -9,21 +9,21 @@ public class SpotIcon extends AbstractIcon {
 
     public SpotIcon(AbstractSpot.Type spotType) {
         switch (spotType) {
-            case BankSpot: iconText = "银";
+            case BANK: iconText = "银";
                 break;
-            case GroundSpot: iconText = "空";
+            case EMPTY: iconText = "空";
                 break;
-            case CardSpot: iconText = "卡";
+            case CARD: iconText = "卡";
                 break;
-            case HouseSpot: iconText = "◎";
+            case HOUSE: iconText = "◎";
                 break;
-            case LotterySpot: iconText = "彩";
+            case LOTTERY: iconText = "彩";
                 break;
-            case NewsSpot: iconText = "新";
+            case NEWS: iconText = "新";
                 break;
-            case StoreSpot: iconText = "道";
+            case STORE: iconText = "道";
                 break;
-            case TicketSpot: iconText = "券";
+            case TICKET: iconText = "券";
                 break;
             default: iconText = "";
         }
