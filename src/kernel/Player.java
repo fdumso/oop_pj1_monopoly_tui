@@ -18,6 +18,7 @@ public class Player {
     private int ticket;
     private int position;
     private Direction direction;
+    private boolean trapped;
     private ArrayList<HouseSpot> houseList;
     private ArrayList<AbstractCard> cardList;
 
@@ -32,7 +33,7 @@ public class Player {
         this.ticket = ticket;
     }
 
-    public enum  Direction {
+    public enum Direction {
         CLOCKWISE, COUNTERCLOCKWISE;
 
         @Override
@@ -43,7 +44,15 @@ public class Player {
             }
         }
 
+        public int sign() {
+            switch (this) {
+                case CLOCKWISE: return 1;
+                default: return -1;
+            }
+        }
+
     }
+
     /* Read Method*/
     public int getId() {
         return id;
@@ -56,7 +65,6 @@ public class Player {
     public PlayerIcon getIcon() {
         return icon;
     }
-
     public double getCash() {
         return cash;
     }
@@ -97,6 +105,9 @@ public class Player {
         return cardList;
     }
 
+    boolean isTrapped() {
+        return trapped;
+    }
 
     /* Write Method*/
 
@@ -104,27 +115,55 @@ public class Player {
         this.icon = icon;
     }
 
-    public void setCash(double cash) {
-        this.cash = cash;
-    }
-
-    public void setDeposit(double deposit) {
-        this.deposit = deposit;
-    }
-
-    public void setTicket(int ticket) {
-        this.ticket = ticket;
-    }
-
-    public void setPosition(int position) {
+    void setPosition(int position) {
         this.position = position;
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public void reverseDirection() {
+        if (direction == Direction.CLOCKWISE) {
+            direction = Direction.COUNTERCLOCKWISE;
+        } else {
+            direction = Direction.CLOCKWISE;
+        }
     }
 
     public void addCard(AbstractCard card) {
         cardList.add(card);
+    }
+
+    public void setTrapped() {
+        this.trapped = true;
+    }
+
+    void clearTrapped() {
+        this.trapped = false;
+    }
+
+    public void addDeposit(double amount) {
+        deposit += amount;
+    }
+
+    public void subDeposit(double amount) {
+        deposit -= amount;
+    }
+
+    public void addCash(double amount) {
+        cash += amount;
+    }
+
+    public void subCash(double amount) {
+        cash -= amount;
+    }
+
+    public void addTicket(int number) {
+        ticket += number;
+    }
+
+    public void subTicket(int number) {
+        ticket -= number;
+    }
+
+    public void setCash(double cash) {
+        this.cash = cash;
     }
 }

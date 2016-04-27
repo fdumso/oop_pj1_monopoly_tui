@@ -1,5 +1,7 @@
 package kernel.card;
 
+import kernel.Game;
+
 /**
  * Created by freemso on 2016/4/25.
  */
@@ -28,5 +30,5 @@ public abstract class AbstractCard {
         this.price = price;
     }
 
-    public abstract boolean event();
+    public abstract boolean effect(Game game, int playerId);
 }

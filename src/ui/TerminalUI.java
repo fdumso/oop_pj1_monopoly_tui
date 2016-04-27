@@ -52,7 +52,19 @@ public class TerminalUI implements IGameUI {
 
     @Override
     public void endRound() {
-
+        if (game.getTimeSystem().isEndOfTheMonth()) {
+            System.out.println("月末，银行发利息");
+            for (Player player: playerList) {
+                double interest = player.getDeposit() * 0.1;
+                player.addDeposit(interest);
+                System.out.println("玩家 " + player.getName()
+                        + "获得"
+                        + interest
+                        + "元储蓄利息！");
+            }
+        }
+        inputReader.enter();
+        game.getTimeSystem().addDay();
     }
 
     @Override
@@ -114,7 +126,7 @@ public class TerminalUI implements IGameUI {
             }
             case 6: {
                 // roll the dice
-                rollDice();
+                rollDice(playerId);
                 break;
             }
             case 7: {
@@ -145,7 +157,7 @@ public class TerminalUI implements IGameUI {
         if (cardId == -1) {
             System.out.println("返回上一级菜单");
         } else {
-            boolean cardUsed = cardList.get(cardId).event();
+            boolean cardUsed = cardList.get(cardId).effect(game, playerId);
             if (cardUsed) {
                 System.out.println("使用成功!");
                 cardList.remove(cardId);
@@ -227,15 +239,20 @@ public class TerminalUI implements IGameUI {
     }
 
     @Override
-    public void rollDice() {
+    public void rollDice(int playerId) {
         printCurrentMap();
         inputReader.enter();
-
+        int dicePoint = game.getDice().roll();
+        System.out.println("你掷得的点数为：" + dicePoint);
+        game.move(playerId, dicePoint);
     }
 
     @Override
     public void concede(int playerId) {
-
+        System.out.print("您确定要认输吗？<y/n>：");
+        if (inputReader.confirm()) {
+            game.concede(playerId);
+        }
     }
 
     @Override
@@ -243,10 +260,6 @@ public class TerminalUI implements IGameUI {
 
     }
 
-    @Override
-    public void move(int playerId, int steps) {
-
-    }
 
     /* Private Method*/
     private void printOriginalMap() {

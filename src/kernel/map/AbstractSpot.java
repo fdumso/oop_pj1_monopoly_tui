@@ -28,6 +28,15 @@ public abstract class AbstractSpot {
         BANK, EMPTY, HOUSE, LOTTERY, NEWS, CARD, TICKET, STORE
     }
 
+    public void stepIn() {
+    }
+
+    public void stepOut() {
+    }
+
+    public void stay() {
+    }
+
     /* Read Method */
 
     public int getId() {

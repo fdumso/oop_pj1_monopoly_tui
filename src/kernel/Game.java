@@ -1,5 +1,6 @@
 package kernel;
 
+import kernel.map.AbstractSpot;
 import kernel.map.Map;
 import kernel.util.TimeSystem;
 import ui.IGameUI;
@@ -18,6 +19,7 @@ public class Game {
     private ArrayList<Player> playerList;
     private Map map;
     private TimeSystem timeSystem;
+    private Dice dice;
     private int totalRoundsNum;
     private IGameUI gameUI;
 
@@ -26,6 +28,7 @@ public class Game {
         map = new Map();
         timeSystem = new TimeSystem();
         gameUI = new TerminalUI(this);
+        dice = new Dice();
     }
 
     void init() {
@@ -44,6 +47,7 @@ public class Game {
             }
             gameUI.endRound();
         }
+        gameUI.gameOver();
     }
 
 
@@ -61,6 +65,9 @@ public class Game {
         return map;
     }
 
+    public Dice getDice() {
+        return dice;
+    }
     /* Write Method*/
 
     public void setTotalRoundsNum(int totalRoundsNum) {
@@ -73,11 +80,37 @@ public class Game {
         playerList.add(player);
     }
 
-    class Dice {
+    public void move(int playerId, int steps) {
+        Player player = playerList.get(playerId);
+        for (int i = 0; i < steps; i++) {
+            if (player.isTrapped()) {
+                player.clearTrapped();
+                break;
+            } else {
+                AbstractSpot outSpot = map.getSpot(player.getPosition());
+                AbstractSpot inSpot = map.getSpot(player.getPosition() + player.getDirection().sign());
+                outSpot.stepOut();
+                player.setPosition(inSpot.getId());
+                inSpot.stepIn();
+            }
+        }
+        map.getSpot(player.getPosition()).stay();
+    }
+
+    public void concede(int playerId) {
+        // TO DO
+
+    }
+
+    public int chooseASpot() {
+        return gameUI.chooseASpot();
+    }
+
+    public class Dice {
         private int point;
         private boolean isControlled;
 
-        int roll() {
+        public int roll() {
             if (!isControlled) {
                 point = (int) (Math.random() * 6 + 1);
             }

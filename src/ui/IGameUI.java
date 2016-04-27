@@ -24,11 +24,11 @@ public interface IGameUI {
 
     void showPlayerInfo();
 
-    void rollDice();
+    void rollDice(int playerId);
 
     void concede(int playerId);
 
     void gameOver();
 
-    void move(int playerId, int steps);
+    int chooseASpot();
 }
