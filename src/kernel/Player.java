@@ -1,6 +1,7 @@
 package kernel;
 
 import kernel.card.AbstractCard;
+import kernel.map.AbstractSpot;
 import kernel.map.HouseSpot;
 import ui.*;
 
@@ -65,6 +66,7 @@ public class Player {
     public PlayerIcon getIcon() {
         return icon;
     }
+
     public double getCash() {
         return cash;
     }
@@ -72,7 +74,6 @@ public class Player {
     public double getDeposit() {
         return deposit;
     }
-
     public int getTicket() {
         return ticket;
     }
@@ -165,5 +166,13 @@ public class Player {
 
     public void setCash(double cash) {
         this.cash = cash;
+    }
+
+    public void addHouse(HouseSpot spot) {
+        this.houseList.add(spot);
+    }
+
+    public void removeHouse(HouseSpot spot) {
+        houseList.remove(spot);
     }
 }

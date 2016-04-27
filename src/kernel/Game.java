@@ -40,10 +40,10 @@ public class Game {
     private void main() {
         for (int round = 0; round < totalRoundsNum; round++) {
             gameUI.startRound();
-            for (int playerId = 0; playerId < playerList.size(); playerId++) {
-                gameUI.playerStart(playerId);
-                gameUI.main(playerId);
-                gameUI.playerEnd(playerId);
+            for (Player player: playerList) {
+                gameUI.playerStart(player);
+                gameUI.main(player);
+                gameUI.playerEnd(player);
             }
             gameUI.endRound();
         }
@@ -68,6 +68,11 @@ public class Game {
     public Dice getDice() {
         return dice;
     }
+
+    public IGameUI getGameUI() {
+        return gameUI;
+    }
+
     /* Write Method*/
 
     public void setTotalRoundsNum(int totalRoundsNum) {
@@ -80,8 +85,7 @@ public class Game {
         playerList.add(player);
     }
 
-    public void move(int playerId, int steps) {
-        Player player = playerList.get(playerId);
+    public void move(Player player, int steps) {
         for (int i = 0; i < steps; i++) {
             if (player.isTrapped()) {
                 player.clearTrapped();
@@ -97,13 +101,13 @@ public class Game {
         map.getSpot(player.getPosition()).stay();
     }
 
-    public void concede(int playerId) {
+    public void concede(Player player) {
         // TO DO
 
     }
 
-    public int chooseASpot() {
-        return gameUI.chooseASpot();
+    public AbstractSpot chooseASpotToSetBarricade(Player player) {
+        return gameUI.chooseASpotToSetBarricade(player);
     }
 
     public class Dice {

@@ -2,8 +2,7 @@ package kernel.card;
 
 import kernel.Game;
 import kernel.Player;
-
-import java.util.ArrayList;
+import kernel.map.AbstractSpot;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -14,8 +13,9 @@ public class BarricadeCard extends AbstractCard {
     }
 
     @Override
-    public boolean effect(Game game, int playerId) {
-        int spotId = game.chooseASpot();
-
+    public boolean effect(Game game, Player user) {
+        AbstractSpot spot = game.chooseASpotToSetBarricade(user);
+        spot.addBarricade();
+        return true;
     }
 }

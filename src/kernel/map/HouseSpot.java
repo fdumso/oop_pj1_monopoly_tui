@@ -1,5 +1,8 @@
 package kernel.map;
 
+import kernel.Player;
+import ui.AbstractIcon;
+import ui.HouseIcon;
 import ui.SpotIcon;
 
 /**
@@ -8,15 +11,15 @@ import ui.SpotIcon;
 public class HouseSpot extends AbstractSpot {
     private double originalPrice;
     private int level;
-    private int ownerId;
-    private int streetId;
+    private Player owner;
+    private Street street;
 
-    public HouseSpot(int id, String name, double originalPrice, int streetId) {
+    public HouseSpot(int id, String name, double originalPrice, Street street) {
         super(id, name, Type.HOUSE);
         this.originalPrice = originalPrice;
-        this.streetId = streetId;
+        this.street = street;
         this.level = 1;
-        this.ownerId = -1;
+        this.owner = null;
     }
 
     public double getOriginalPrice() {
@@ -27,12 +30,12 @@ public class HouseSpot extends AbstractSpot {
         return level;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public Player getOwner() {
+        return owner;
     }
 
-    public int getStreetId() {
-        return streetId;
+    public Street getStreet() {
+        return street;
     }
 
     public double calcPrice() {
@@ -43,4 +46,20 @@ public class HouseSpot extends AbstractSpot {
         return calcPrice() * 0.3;
     }
 
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public AbstractIcon printIcon() {
+        if (containedPlayerList.isEmpty()) {
+            if (owner != null) {
+                return new HouseIcon(owner.getId());
+            } else {
+                return icon;
+            }
+        } else {
+            return containedPlayerList.get(containedPlayerList.size() - 1).getIcon();
+        }
+    }
 }

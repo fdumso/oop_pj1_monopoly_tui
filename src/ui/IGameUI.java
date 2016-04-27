@@ -1,5 +1,8 @@
 package ui;
 
+import kernel.Player;
+import kernel.map.AbstractSpot;
+
 /**
  * Created by freemso on 2016/4/27.
  */
@@ -10,25 +13,33 @@ public interface IGameUI {
 
     void endRound();
 
-    void playerStart(int playerId);
+    void playerStart(Player player);
 
-    void playerEnd(int playerId);
+    void playerEnd(Player player);
 
-    void main(int playerId);
+    void main(Player player);
 
-    void useCard(int playerId);
+    void useCard(Player player);
 
-    void warning(int playerId);
+    void warning(Player player);
 
-    void showSpotInfo(int playerId);
+    void showSpotInfo(Player player);
 
     void showPlayerInfo();
 
-    void rollDice(int playerId);
+    void rollDice(Player player);
 
-    void concede(int playerId);
+    void concede(Player player);
 
     void gameOver();
 
-    int chooseASpot();
+    void showMessage(String message);
+
+    AbstractSpot chooseASpotToSetBarricade(Player player);
+
+    boolean confirmMessage(String s);
+
+    int getIntegerMessage(String s);
+
+    int getIntegerMessage(String s, int l, int g);
 }

@@ -1,6 +1,7 @@
 package kernel.card;
 
 import kernel.Game;
+import kernel.Player;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -30,5 +31,5 @@ public abstract class AbstractCard {
         this.price = price;
     }
 
-    public abstract boolean effect(Game game, int playerId);
+    public abstract boolean effect(Game game, Player user);
 }

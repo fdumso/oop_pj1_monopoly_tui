@@ -37,7 +37,7 @@ public class Map {
                     case 0: {
                         double housePrice = Double.parseDouble(line[2]);
                         int streetId = Integer.parseInt(line[3]);
-                        AbstractSpot house = new HouseSpot(spotList.size(), spotName, housePrice, streetId);
+                        AbstractSpot house = new HouseSpot(spotList.size(), spotName, housePrice, streetList.get(streetId));
                         spotList.add(house);
                         streetList.get(streetId).addSpot((HouseSpot) house);
                         break;
@@ -67,39 +67,8 @@ public class Map {
         return spotList.get(spotId % spotList.size());
     }
 
-    private class Street {
-        private int id;
-        private String name;
-        private ArrayList<HouseSpot> spotList;
-
-        Street(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        void addSpot(HouseSpot spot) {
-            spotList.add(spot);
-        }
-
-        public double calcSurcharge(int playerId) {
-            double surcharge = 0;
-            for (HouseSpot spot: spotList) {
-                if (spot.getOwnerId() != playerId) {
-                    return 0;
-                } else {
-                    surcharge += spot.calcToll();
-                }
-            }
-            return surcharge;
-        }
+    public Street getStreet(int streetId) {
+        return streetList.get(streetId % streetList.size());
     }
 
 }

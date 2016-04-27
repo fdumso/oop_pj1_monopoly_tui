@@ -24,8 +24,6 @@ public class SpotIcon extends AbstractIcon {
             case STORE: iconText = "道";
                 break;
             case TICKET: iconText = "券";
-                break;
-            default: iconText = "";
         }
     }
 }

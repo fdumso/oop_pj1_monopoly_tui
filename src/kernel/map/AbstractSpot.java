@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public abstract class AbstractSpot {
     private int id;
     private String name;
-    private SpotIcon icon;
+    protected SpotIcon icon;
     private int barricadeNum;
-    private ArrayList<Player> containedPlayerList;
+    ArrayList<Player> containedPlayerList;
     private Type type;
 
     protected AbstractSpot(int id, String name, Type type) {

@@ -15,7 +15,7 @@ public class AverageRichCard extends AbstractCard {
     }
 
     @Override
-    public boolean effect(Game game, int playerId) {
+    public boolean effect(Game game, Player user) {
         ArrayList<Player> playerList = game.getPlayerList();
         double sumCash = 0;
         for (Player player : playerList) {

@@ -68,8 +68,7 @@ public class TerminalUI implements IGameUI {
     }
 
     @Override
-    public void playerStart(int playerId) {
-        Player player = playerList.get(playerId);
+    public void playerStart(Player player) {
         System.out.print("现在是玩家："
                 + player.getName()
                 + " 的操作时间\n"
@@ -80,12 +79,12 @@ public class TerminalUI implements IGameUI {
     }
 
     @Override
-    public void playerEnd(int playerId) {
+    public void playerEnd(Player player) {
 
     }
 
     @Override
-    public void main(int playerId) {
+    public void main(Player player) {
         inputReader.enter();
         System.out.print("现在可以执行如下操作：\n" + "0 - 查看地图\n"
                 + "1 - 查看原始地图\n" + "2 - 使用道具\n" + "3 - 前方十步内示警\n"
@@ -106,17 +105,17 @@ public class TerminalUI implements IGameUI {
             }
             case 2: {
                 // use cards
-                useCard(playerId);
+                useCard(player);
                 break;
             }
             case 3: {
                 // show warning
-                warning(playerId);
+                warning(player);
                 break;
             }
             case 4: {
                 // show spot info
-                showSpotInfo(playerId);
+                showSpotInfo(player);
                 break;
             }
             case 5: {
@@ -126,21 +125,20 @@ public class TerminalUI implements IGameUI {
             }
             case 6: {
                 // roll the dice
-                rollDice(playerId);
+                rollDice(player);
                 break;
             }
             case 7: {
                 // concede
-                concede(playerId);
+                concede(player);
                 break;
             }
         }
-        main(playerId);
+        main(player);
     }
 
     @Override
-    public void useCard(int playerId) {
-        Player player = playerList.get(playerId);
+    public void useCard(Player player) {
         inputReader.enter();
         ArrayList<AbstractCard> cardList = player.getCardList();
         if (cardList.isEmpty()) {
@@ -157,7 +155,7 @@ public class TerminalUI implements IGameUI {
         if (cardId == -1) {
             System.out.println("返回上一级菜单");
         } else {
-            boolean cardUsed = cardList.get(cardId).effect(game, playerId);
+            boolean cardUsed = cardList.get(cardId).effect(game, player);
             if (cardUsed) {
                 System.out.println("使用成功!");
                 cardList.remove(cardId);
@@ -166,8 +164,8 @@ public class TerminalUI implements IGameUI {
     }
 
     @Override
-    public void warning(int playerId) {
-        int playerPosition = playerList.get(playerId).getPosition();
+    public void warning(Player player) {
+        int playerPosition = player.getPosition();
         boolean hasWarning = false;
         for (int i = 1; i <= 10; i++) {
             if (map.getSpot(playerPosition + i).hasBarricade()) {
@@ -181,17 +179,17 @@ public class TerminalUI implements IGameUI {
     }
 
     @Override
-    public void showSpotInfo(int playerId) {
+    public void showSpotInfo(Player player) {
         System.out.print("请输入你想查询的点与你相差的步数<顺时针方向为正，逆时针方向为负>：");
         int index = inputReader.readInt();
-        int playerPosition = playerList.get(playerId).getPosition();
+        int playerPosition = player.getPosition();
         AbstractSpot spot = map.getSpot(playerPosition + index);
         AbstractSpot.Type type = spot.getType();
         switch (type) {
             case HOUSE: {
                 System.out.println("类型：房产\n名称：" + spot.getName() + "\n初始价格：" + ((HouseSpot) spot).getOriginalPrice()
                         + " 元\n等级：" + ((HouseSpot) spot).getLevel() + " 级\n当前价格：" + ((HouseSpot) spot).calcPrice() + " 元\n拥有者："
-                        + playerList.get(((HouseSpot) spot).getOwnerId()).getName());
+                        + ((HouseSpot) spot).getOwner().getName());
                 break;
             }
             case BANK: {
@@ -239,25 +237,51 @@ public class TerminalUI implements IGameUI {
     }
 
     @Override
-    public void rollDice(int playerId) {
+    public void rollDice(Player player) {
         printCurrentMap();
         inputReader.enter();
         int dicePoint = game.getDice().roll();
         System.out.println("你掷得的点数为：" + dicePoint);
-        game.move(playerId, dicePoint);
+        game.move(player, dicePoint);
     }
 
     @Override
-    public void concede(int playerId) {
+    public void concede(Player player) {
         System.out.print("您确定要认输吗？<y/n>：");
         if (inputReader.confirm()) {
-            game.concede(playerId);
+            game.concede(player);
         }
     }
 
     @Override
     public void gameOver() {
 
+    }
+
+    @Override
+    public void showMessage(String message) {
+        System.out.println(message);
+        inputReader.enter();
+    }
+
+    @Override
+    public AbstractSpot chooseASpotToSetBarricade(Player player) {
+        System.out.print("请输入你想放置路障的点与你相差的步数（不超过8）<顺时针方向为正，逆时针方向为负>：");
+        int index = inputReader.readInt(-8, 8);
+        AbstractSpot spot = map.getSpot(player.getPosition() + index);
+        if (spot.hasBarricade()) {
+            System.out.print("此处已有路障，不能再次放置！");
+            return chooseASpotToSetBarricade(player);
+        } else {
+            System.out.println("路障已成功放置！");
+            return spot;
+        }
+    }
+
+    @Override
+    public boolean confirmMessage(String s) {
+        System.out.print(s);
+        return inputReader.confirm();
     }
 
 
