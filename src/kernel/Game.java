@@ -3,8 +3,9 @@ package kernel;
 import kernel.map.AbstractSpot;
 import kernel.map.Map;
 import kernel.util.TimeSystem;
-import ui.IGameUI;
-import ui.TerminalUI;
+import ui.Option;
+import ui.UI;
+import ui.tui.TUI;
 
 import java.util.ArrayList;
 
@@ -21,18 +22,32 @@ public class Game {
     private TimeSystem timeSystem;
     private Dice dice;
     private int totalRoundsNum;
-    private IGameUI gameUI;
+    private UI ui;
 
     Game() {
         playerList = new ArrayList<>();
         map = new Map();
         timeSystem = new TimeSystem();
-        gameUI = new TerminalUI(this);
         dice = new Dice();
+        ui = new TUI();
     }
 
     void init() {
-        gameUI.init();
+        Option one = ;
+        System.out.print("请选择玩家个数：（ 2 - 4 ）");
+        int playerNumber = inputReader.readInt(2, 4);
+        for (int i = 0; i < playerNumber; i++) {
+            System.out.print("请输入玩家 " + i + " 的昵称：");
+            String playerName = inputReader.readString(0, 10);
+            game.addPlayer(i, playerName);
+        }
+        // init total rounds number
+        System.out.print("请输入总回合数：");
+        int totalRoundsNum = inputReader.readInt(0, 365);
+        game.setTotalRoundsNum(totalRoundsNum);
+        // announce the game
+        System.out.println("==========游戏开始==========");
+        inputReader.enter();
         main();
     }
 
@@ -69,7 +84,7 @@ public class Game {
         return dice;
     }
 
-    public IGameUI getGameUI() {
+    public UI getGameUI() {
         return gameUI;
     }
 

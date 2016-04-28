@@ -71,4 +71,18 @@ public class Map {
         return streetList.get(streetId % streetList.size());
     }
 
+    public int calcDistance(int p1, int p2) {
+        if (p1 > p2) {
+            int d1 = p1 - p2;
+            int d2 = p2 + spotList.size() - p1;
+            return Math.min(d1, d2);
+        } else if (p1 < p2) {
+            int d1 = p2 - p1;
+            int d2 = p1 + spotList.size() - p2;
+            return Math.min(d1, d2);
+        } else {
+            return 0;
+        }
+    }
+
 }

@@ -3,7 +3,7 @@ package ui;
 /**
  * Created by freemso on 2016/4/25.
  */
-public class PlayerIcon extends AbstractIcon {
+public class PlayerIcon extends Icon {
 
     public PlayerIcon(int playerID) {
         switch (playerID) {

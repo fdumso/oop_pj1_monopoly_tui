@@ -1,11 +1,9 @@
 package ui;
 
-import kernel.map.AbstractSpot;
-
 /**
  * Created by freemso on 2016/4/27.
  */
-public class HouseIcon extends AbstractIcon {
+public class HouseIcon extends Icon {
     public HouseIcon(int player) {
         switch (player) {
             case 0: iconText = "①";

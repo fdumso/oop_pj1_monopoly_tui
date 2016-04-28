@@ -23,7 +23,7 @@ public class BuyHouseCard extends AbstractCard {
             return false;
         }
         // check the owner of the house
-        if (((HouseSpot) spot).getOwnerId() == user.getId()) {
+        if (((HouseSpot) spot).getOwner() == user) {
             // this is the user's house
             game.getGameUI().showMessage("这是你自己的房屋，无法再次购买！");
             return false;
@@ -33,9 +33,9 @@ public class BuyHouseCard extends AbstractCard {
             if (user.getCash() >= price) {
                 user.subCash(price);
                 user.addHouse((HouseSpot) spot);
-                ((HouseSpot) spot).setOwnerId(user.getId());
-                if (((HouseSpot) spot).getOwnerId() != -1) {
-                    Player owner = game.getPlayerList().get(((HouseSpot) spot).getOwnerId());
+                ((HouseSpot) spot).setOwner(user);
+                if (((HouseSpot) spot).getOwner() != null) {
+                    Player owner = ((HouseSpot) spot).getOwner();
                     owner.addCash(price);
                     owner.removeHouse((HouseSpot) spot);
                 }

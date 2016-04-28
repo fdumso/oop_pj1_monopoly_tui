@@ -1,11 +1,10 @@
-package ui;
+package ui.tui;
 
-import kernel.Game;
 import kernel.Player;
 import kernel.card.AbstractCard;
 import kernel.map.AbstractSpot;
 import kernel.map.HouseSpot;
-import kernel.map.Map;
+import ui.UI;
 
 import java.util.ArrayList;
 
@@ -13,36 +12,19 @@ import java.util.ArrayList;
 /**
  * Created by freemso on 2016/4/27.
  */
-public class TerminalUI implements IGameUI {
+public class TUI implements UI {
     private InputReader inputReader;
-    private Game game;
-    private ArrayList<Player> playerList;
-    private Map map;
+    private Selection selection;
 
-    public TerminalUI(Game game) {
+    public TUI() {
+        this.selection = new
         this.inputReader = new InputReader();
-        this.game = game;
-        this.playerList = game.getPlayerList();
-        this.map = game.getMap();
     }
 
     @Override
     public void init() {
         // init player
-        System.out.print("请选择玩家个数：（ 2 - 4 ）");
-        int playerNumber = inputReader.readInt(2, 4);
-        for (int i = 0; i < playerNumber; i++) {
-            System.out.print("请输入玩家 " + i + " 的昵称：");
-            String playerName = inputReader.readString(0, 10);
-            game.addPlayer(i, playerName);
-        }
-        // init total rounds number
-        System.out.print("请输入总回合数：");
-        int totalRoundsNum = inputReader.readInt(0, 365);
-        game.setTotalRoundsNum(totalRoundsNum);
-        // announce the game
-        System.out.println("==========游戏开始==========");
-        inputReader.enter();
+
     }
 
     @Override
@@ -282,6 +264,16 @@ public class TerminalUI implements IGameUI {
     public boolean confirmMessage(String s) {
         System.out.print(s);
         return inputReader.confirm();
+    }
+
+    @Override
+    public int getIntegerMessage(String s) {
+        return 0;
+    }
+
+    @Override
+    public int getIntegerMessage(String s, int l, int g) {
+        return 0;
     }
 
 

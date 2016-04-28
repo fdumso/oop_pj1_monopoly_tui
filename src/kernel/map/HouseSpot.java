@@ -1,9 +1,8 @@
 package kernel.map;
 
 import kernel.Player;
-import ui.AbstractIcon;
+import ui.Icon;
 import ui.HouseIcon;
-import ui.SpotIcon;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -51,7 +50,7 @@ public class HouseSpot extends AbstractSpot {
     }
 
     @Override
-    public AbstractIcon printIcon() {
+    public Icon printIcon() {
         if (containedPlayerList.isEmpty()) {
             if (owner != null) {
                 return new HouseIcon(owner.getId());

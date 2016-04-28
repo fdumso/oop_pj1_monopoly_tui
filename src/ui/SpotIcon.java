@@ -5,7 +5,7 @@ import kernel.map.AbstractSpot;
 /**
  * Created by freemso on 2016/4/25.
  */
-public class SpotIcon extends AbstractIcon {
+public class SpotIcon extends Icon {
 
     public SpotIcon(AbstractSpot.Type spotType) {
         switch (spotType) {

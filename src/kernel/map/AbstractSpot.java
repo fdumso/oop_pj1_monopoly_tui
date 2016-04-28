@@ -1,5 +1,6 @@
 package kernel.map;
 
+import kernel.Game;
 import kernel.Player;
 import ui.*;
 
@@ -28,14 +29,11 @@ public abstract class AbstractSpot {
         BANK, EMPTY, HOUSE, LOTTERY, NEWS, CARD, TICKET, STORE
     }
 
-    public void stepIn() {
-    }
+    public abstract void stepIn(Game game, Player player);
 
-    public void stepOut() {
-    }
+    public abstract void stepOut(Game game, Player player);
 
-    public void stay() {
-    }
+    public abstract void stay(Game game, Player player);
 
     /* Read Method */
 
@@ -59,7 +57,7 @@ public abstract class AbstractSpot {
         return barricadeNum != 0;
     }
 
-    public AbstractIcon printIcon() {
+    public Icon printIcon() {
         if (containedPlayerList.isEmpty()) {
             return icon;
         } else {
