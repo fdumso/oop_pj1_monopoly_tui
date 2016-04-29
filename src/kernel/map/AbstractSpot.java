@@ -2,7 +2,9 @@ package kernel.map;
 
 import kernel.Game;
 import kernel.Player;
-import ui.*;
+import kernel.util.Option;
+import ui.icon.Icon;
+import ui.icon.SpotIcon;
 
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by freemso on 2016/4/12.
  */
-public abstract class AbstractSpot {
+public abstract class AbstractSpot implements Option {
     private int id;
     private String name;
     protected SpotIcon icon;

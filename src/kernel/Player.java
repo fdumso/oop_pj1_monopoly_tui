@@ -1,9 +1,8 @@
 package kernel;
 
 import kernel.card.AbstractCard;
-import kernel.map.AbstractSpot;
 import kernel.map.HouseSpot;
-import ui.*;
+import ui.icon.PlayerIcon;
 
 import java.util.ArrayList;
 

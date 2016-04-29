@@ -1,8 +1,9 @@
 package kernel.map;
 
+import kernel.Game;
 import kernel.Player;
-import ui.Icon;
-import ui.HouseIcon;
+import ui.icon.Icon;
+import ui.icon.HouseIcon;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -47,6 +48,21 @@ public class HouseSpot extends AbstractSpot {
 
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public void stepIn(Game game, Player player) {
+
+    }
+
+    @Override
+    public void stepOut(Game game, Player player) {
+
+    }
+
+    @Override
+    public void stay(Game game, Player player) {
+
     }
 
     @Override

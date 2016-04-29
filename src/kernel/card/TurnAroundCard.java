@@ -17,17 +17,17 @@ public class TurnAroundCard extends AbstractCard {
     public boolean effect(Game game, Player user) {
         ArrayList<Player> playerList = game.getPlayerList();
         do {
-            int targetId = game.getGameUI().getIntegerMessage("输入你想施用对象的ID：（输入-1退出）", -1, playerList.size());
+            int targetId = game.getUI().inputInt("输入你想施用对象的ID（输入-1退出）：", -1, playerList.size()-1);
             if (targetId == -1) {
                 return false;
             }
             Player target = playerList.get(targetId);
             if (game.getMap().calcDistance(user.getPosition(), target.getPosition()) <= 5) {
                 target.reverseDirection();
-                game.getGameUI().showMessage("使用成功，" + target.getName() + "的方向变为" + target.getDirection().toString());
+                game.getUI().showMessage("使用成功，" + target.getName() + "的方向变为" + target.getDirection().toString());
                 return true;
             } else {
-                game.getGameUI().showMessage("使用失败！对象不在范围（五步）之内！");
+                game.getUI().popMessage("使用失败！对象不在范围（五步）之内！");
             }
         } while (true);
     }

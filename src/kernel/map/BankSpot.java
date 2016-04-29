@@ -2,7 +2,6 @@ package kernel.map;
 
 import kernel.Game;
 import kernel.Player;
-import ui.SpotIcon;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -15,7 +14,7 @@ public class BankSpot extends AbstractSpot {
 
     @Override
     public void stepIn(Game game, Player player) {
-        game.getGameUI().showMessage("==========欢迎光临" + getName() + "==========");
+        game.getUI().showMessage("==========欢迎光临" + getName() + "==========");
 
     }
 
