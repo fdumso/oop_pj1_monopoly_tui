@@ -23,6 +23,7 @@ public class Player {
     private boolean bankrupt;
     private ArrayList<HouseSpot> houseList;
     private ArrayList<AbstractCard> cardList;
+    private int[] stockList;
 
     public Player(int id, String name, double cash, double deposit, int ticket) {
         this.id = id;
@@ -35,6 +36,7 @@ public class Player {
         this.cardList = new ArrayList<>();
         this.trapped = false;
         this.bankrupt = false;
+        this.stockList = new int[10];
     }
 
 
@@ -120,9 +122,11 @@ public class Player {
         return bankrupt;
     }
 
+    public int[] getStockList() {
+        return stockList;
+    }
 
-
-    /* Write Method*/
+/* Write Method*/
 
     public void setIcon(PlayerIcon icon) {
         this.icon = icon;

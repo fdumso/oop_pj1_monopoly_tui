@@ -21,7 +21,7 @@ public class PlayerSystem {
 
     public void showPlayerInfo(Game game) {
         game.getUI().showMessage("玩家资产信息如下：\n");
-        System.out.printf("%-10s%-10s%-10s%-10s%-10s%-10s%-10s\n", "玩家名", "点券", "现金", "存款", "房产数", "房产总价值", "资产总额");
+        System.out.printf("%-7s%-8s%-8s%-8s%-7s%-5s%-6s\n", "玩家名", "点券", "现金", "存款", "房产数", "房产总价值", "资产总额");
         for (Player p : playerList) {
             System.out.printf("%-10s%-10d%-10.2f%-10.2f%-10d%-10.2f%-10.2f\n",
                     p.getName(), p.getTicket(),
@@ -33,7 +33,6 @@ public class PlayerSystem {
 
     public void initPlayer(Game game) {
         int playerNumber = game.getUI().inputInt("请输入玩家个数（ 2 - 4 ）：", 2, 4);
-        new Scanner(System.in).nextLine();
         for (int i = 0; i < playerNumber; i++) {
             String name = game.getUI().inputStr("请输入玩家 " + (i+1) + " 的昵称：", 2, 10);
             Player player = new Player(i, name, originalCash, originalDeposit, originalTicket);
@@ -64,5 +63,19 @@ public class PlayerSystem {
             }
         }
         return temp;
+    }
+
+    public Player maxCapitalPlayer() {
+        Player temp = playerList.get(0);
+        for (int i = 1; i < playerList.size(); i++) {
+            if (playerList.get(i).getCapital() > temp.getHouseList().size()) {
+                temp = playerList.get(i);
+            }
+        }
+        return temp;
+    }
+
+    public void removePlayer(Player p) {
+        playerList.remove(p);
     }
 }

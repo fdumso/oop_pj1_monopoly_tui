@@ -8,7 +8,8 @@ import ui.UI;
 public class Game {
 
 
-
+    private LotterySystem lotterySystem;
+    private StockSystem stockSystem;
     private MapSystem mapSystem;
     private TimeSystem timeSystem;
     private CardSystem cardSystem;
@@ -25,6 +26,8 @@ public class Game {
         timeSystem = new TimeSystem();
         cardSystem = new CardSystem();
         bankSystem = new BankSystem();
+        lotterySystem = new LotterySystem();
+        stockSystem = new StockSystem();
         mapSystem = new MapSystem();
         dice = new Dice();
         ui = new UI();
@@ -52,11 +55,29 @@ public class Game {
                         + player.getDirection().toString() + " 。\n");
                 operate(player);
             }
+            for (Player player: playerSystem.getPlayerList()) {
+                if (player.isBankrupt()) {
+                    playerSystem.removePlayer(player);
+                }
+            }
+            if (playerSystem.getPlayerList().size() == 1) {
+                ui.showMessage("游戏结束！\n" + playerSystem.getPlayerList().get(0).getName() + "获得胜利");
+                break;
+            }
             if (timeSystem.isEndOfTheMonth()) {
                 bankSystem.payInterest(this);
+                lotterySystem.open(this);
             }
+            stockSystem.fluc();
             timeSystem.addDay();
         }
+        timeup();
+    }
+
+    private void timeup() {
+        ui.showMessage("时间到，游戏结束");
+        Player winner = playerSystem.maxCapitalPlayer();
+        ui.showMessage(winner.getName() + "获得胜利");
     }
 
     public void operate(Player player) {
@@ -110,16 +131,19 @@ public class Game {
             }
             case CHECK_STOCK: {
                 // stock
-                checkStock(player);
+                stockSystem.mainPanel(this, player);
+                operate(player);
             }
         }
     }
 
 
     public void rollDice(Player player) {
+        mapSystem.printCurMap(this);
         int dicePoint = dice.roll();
         ui.showMessage("你掷得的点数为：" + dicePoint);
         player.move(this, dicePoint);
+        mapSystem.printCurMap(this);
     }
 
 
@@ -153,17 +177,8 @@ public class Game {
         return bankSystem;
     }
 
-    /* Write Method*/
-
-
-    public void gameOver() {
-
+    public LotterySystem getLotterySystem() {
+        return lotterySystem;
     }
-
-    private void checkStock(Player player) {
-    }
-
-
-
 
 }

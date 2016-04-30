@@ -24,13 +24,13 @@ public class UI {
         System.out.print(description);
         do {
             try {
-                int read = input.nextInt();
+                int read = Integer.parseInt(input.nextLine());
                 if (read >= l && read <= g) {
                     return read;
                 } else {
                     System.out.print("错误！大小不在范围内，重新输入：");
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.print("错误！需要一个整数，重新输入：");
                 input.nextLine();
             }
@@ -41,8 +41,8 @@ public class UI {
         System.out.print(description);
         do {
             try {
-                return input.nextInt();
-            } catch (InputMismatchException e) {
+                return Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e) {
                 System.out.print("错误！需要一个整数，重新输入：");
                 input.nextLine();
             }
@@ -53,7 +53,7 @@ public class UI {
         System.out.print(description);
         do {
             try {
-                String s = input.nextLine();
+                String s = input.nextLine().trim();
                 int length = s.length();
                 if (length >= l && length <= g) {
                     return s;
@@ -115,7 +115,7 @@ public class UI {
     }
 
     public int select(String description, ArrayList<AbstractCard> optionList) {
-        System.out.print(description + "\n输入选项前编号<输入 -1 取消>：");
+        System.out.print(description + "\n输入选项前编号<输入 -1 取消>：\n");
         for (int i = 0; i < optionList.size(); i++) {
             System.out.println(i + ". " + optionList.get(i).getName());
         }
@@ -136,8 +136,7 @@ public class UI {
                 }
 
             } catch (InputMismatchException e) {
-                System.out.print("错误！需要Y/N");
-                input.nextLine();
+                System.out.print("错误！需要Y/N，请重新输入：");
             }
         } while (true);
     }

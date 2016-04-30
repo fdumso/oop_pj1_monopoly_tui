@@ -72,6 +72,7 @@ public class HouseSpot extends AbstractSpot {
 
     @Override
     public void stay(Game game, Player player) {
+        game.getUI().showMessage("你停留在了" + getName());
         if (getOwner() == null) {
             double price = calcPrice();
             boolean buy = game.getUI().confirm("这是一个可出售的房屋，价格为 "

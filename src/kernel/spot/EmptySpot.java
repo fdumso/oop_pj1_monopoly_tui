@@ -25,6 +25,7 @@ public class EmptySpot extends AbstractSpot {
 
     @Override
     public void stay(Game game, Player player) {
+        game.getUI().showMessage("你停留在了" + getName());
         game.getUI().showMessage("这是一个空地，什么都没有发生");
     }
 }

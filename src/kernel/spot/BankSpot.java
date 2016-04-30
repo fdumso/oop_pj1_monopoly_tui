@@ -62,7 +62,7 @@ public class BankSpot extends AbstractSpot {
 
     @Override
     public void stay(Game game, Player player) {
-        // do nothing
+        game.getUI().showMessage("你停留在了" + getName());
     }
 
 
