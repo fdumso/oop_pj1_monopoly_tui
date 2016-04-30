@@ -1,6 +1,7 @@
 package kernel.map;
 
 import kernel.Player;
+import kernel.spot.HouseSpot;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,8 @@
 package kernel;
 
 import kernel.card.AbstractCard;
-import kernel.map.HouseSpot;
+import kernel.map.Position;
+import kernel.spot.HouseSpot;
 import ui.icon.PlayerIcon;
 
 import java.util.ArrayList;
@@ -16,13 +17,14 @@ public class Player {
     private double cash;
     private double deposit;
     private int ticket;
-    private int position;
+    private Position position;
     private Direction direction;
     private boolean trapped;
+    private boolean bankrupt;
     private ArrayList<HouseSpot> houseList;
     private ArrayList<AbstractCard> cardList;
 
-    public Player(int id, String name, int position, Direction direction, double cash, double deposit, int ticket) {
+    public Player(int id, String name, Position position, Direction direction, double cash, double deposit, int ticket) {
         this.id = id;
         this.icon = new PlayerIcon(id);
         this.name = name;
@@ -77,7 +79,7 @@ public class Player {
         return ticket;
     }
 
-    public int getPosition() {
+    public Position getPosition() {
         return position;
     }
 
@@ -109,13 +111,17 @@ public class Player {
         return trapped;
     }
 
+    public boolean isBankrupt() {
+        return bankrupt;
+    }
+
     /* Write Method*/
 
     public void setIcon(PlayerIcon icon) {
         this.icon = icon;
     }
 
-    void setPosition(int position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -167,11 +173,21 @@ public class Player {
         this.cash = cash;
     }
 
+    public void setDeposit(double deposit) {
+        this.deposit = deposit;
+    }
+
     public void addHouse(HouseSpot spot) {
         this.houseList.add(spot);
+        spot.setOwner(this);
     }
 
     public void removeHouse(HouseSpot spot) {
         houseList.remove(spot);
+        spot.setOwner(null);
+    }
+
+    public void bankrupt() {
+        bankrupt = true;
     }
 }

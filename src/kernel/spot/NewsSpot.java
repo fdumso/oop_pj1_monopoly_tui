@@ -1,4 +1,4 @@
-package kernel.map;
+package kernel.spot;
 
 import kernel.Game;
 import kernel.Player;
@@ -6,9 +6,9 @@ import kernel.Player;
 /**
  * Created by freemso on 2016/4/25.
  */
-public class StoreSpot extends AbstractSpot {
-    public StoreSpot(int id, String name) {
-        super(id, name, Type.STORE);
+public class NewsSpot extends AbstractSpot {
+    public NewsSpot(int id, String name) {
+        super(id, name, Type.NEWS);
     }
 
     @Override

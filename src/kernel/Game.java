@@ -1,8 +1,9 @@
 package kernel;
 
 import kernel.card.AbstractCard;
-import kernel.map.AbstractSpot;
-import kernel.map.HouseSpot;
+import kernel.util.CardSystem;
+import kernel.spot.AbstractSpot;
+import kernel.spot.HouseSpot;
 import kernel.map.Map;
 import kernel.util.TimeSystem;
 import kernel.util.Option;
@@ -22,6 +23,7 @@ public class Game {
     private ArrayList<Player> playerList;
     private Map map;
     private TimeSystem time;
+    private CardSystem cardSystem;
     private Dice dice;
     private int totalRoundNum;
     private UI ui;
@@ -30,6 +32,7 @@ public class Game {
         playerList = new ArrayList<>();
         map = new Map();
         time = new TimeSystem();
+        cardSystem = new CardSystem();
         dice = new Dice();
         ui = new TUI();
     }
@@ -177,6 +180,10 @@ public class Game {
 
     public UI getUI() {
         return ui;
+    }
+
+    public CardSystem getCardSystem() {
+        return cardSystem;
     }
 
     /* Write Method*/

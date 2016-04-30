@@ -2,7 +2,7 @@ package kernel.card;
 
 import kernel.Game;
 import kernel.Player;
-import kernel.map.AbstractSpot;
+import kernel.spot.AbstractSpot;
 
 /**
  * Created by freemso on 2016/4/25.

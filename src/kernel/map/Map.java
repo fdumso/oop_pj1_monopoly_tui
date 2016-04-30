@@ -1,5 +1,7 @@
 package kernel.map;
 
+import kernel.spot.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

@@ -2,9 +2,8 @@ package kernel.card;
 
 import kernel.Game;
 import kernel.Player;
-import kernel.map.AbstractSpot;
-import kernel.map.HouseSpot;
-import kernel.map.Map;
+import kernel.spot.AbstractSpot;
+import kernel.spot.HouseSpot;
 import kernel.map.Street;
 
 /**

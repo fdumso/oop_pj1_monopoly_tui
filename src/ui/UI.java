@@ -1,6 +1,7 @@
 package ui;
 
 import kernel.Game;
+import kernel.spot.BankSpot;
 import kernel.util.Option;
 
 import java.util.ArrayList;
@@ -28,4 +29,5 @@ public interface UI {
 
     boolean confirm(String description);
 
+    BankSpot.Operation showBankPanel();
 }

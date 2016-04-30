@@ -1,4 +1,4 @@
-package kernel.map;
+package kernel.spot;
 
 import kernel.Game;
 import kernel.Player;
