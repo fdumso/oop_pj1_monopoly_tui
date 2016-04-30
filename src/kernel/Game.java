@@ -45,6 +45,7 @@ public class Game {
         ui.startGame();
         for (int round = 0; round < totalRoundNum; round++) {
             ui.showMessage("今天是: " + timeSystem.printDate());
+            mapSystem.printCurMap(this);
             for (Player player: playerSystem.getPlayerList()) {
                 ui.showMessage("现在是玩家："
                         + player.getName()
@@ -143,7 +144,6 @@ public class Game {
         int dicePoint = dice.roll();
         ui.showMessage("你掷得的点数为：" + dicePoint);
         player.move(this, dicePoint);
-        mapSystem.printCurMap(this);
     }
 
 

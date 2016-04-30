@@ -21,9 +21,9 @@ public class PlayerSystem {
 
     public void showPlayerInfo(Game game) {
         game.getUI().showMessage("玩家资产信息如下：\n");
-        System.out.printf("%-7s%-8s%-8s%-8s%-7s%-5s%-6s\n", "玩家名", "点券", "现金", "存款", "房产数", "房产总价值", "资产总额");
+        System.out.printf("%-9s%-10s%-10s%-10s%-9s%-7s%-8s\n", "玩家名", "点券", "现金", "存款", "房产数", "房产总价值", "资产总额");
         for (Player p : playerList) {
-            System.out.printf("%-10s%-10d%-10.2f%-10.2f%-10d%-10.2f%-10.2f\n",
+            System.out.printf("%-12s%-12d%-12.2f%-12.2f%-12d%-12.2f%-12.2f\n",
                     p.getName(), p.getTicket(),
                     p.getCash(), p.getDeposit(),
                     p.getHouseList().size(), p.getHouseValue(),

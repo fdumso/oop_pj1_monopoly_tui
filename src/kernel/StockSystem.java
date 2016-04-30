@@ -73,6 +73,7 @@ public class StockSystem {
         if (player.getStockList()[index] >= n) {
             player.getStockList()[index] -= n;
             player.addDeposit(price);
+            System.out.print("玩家" + player.getName() + "卖出了" + n + "股" + stockList.get(index).getName());
             return true;
         } else {
             return false;
@@ -84,11 +85,13 @@ public class StockSystem {
         if (player.getDeposit() >= price) {
             player.subDeposit(price);
             player.getStockList()[index] += n;
+            System.out.print("玩家" + player.getName() + "购买了" + n + "股" + stockList.get(index).getName());
             return true;
         } else if (player.getDeposit() + player.getCash() >= price) {
             player.subCash(price - player.getDeposit());
             player.setDeposit(0);
             player.getStockList()[index] += n;
+            System.out.print("玩家" + player.getName() + "购买了" + n + "股" + stockList.get(index).getName());
             return true;
         } else {
             return false;

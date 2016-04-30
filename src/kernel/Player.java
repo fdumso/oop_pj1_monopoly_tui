@@ -254,6 +254,7 @@ public class Player {
             }
         }
         position.stay(game, this);
+        game.getMapSystem().printCurMap(game);
     }
 
     public void concede(Game game) {

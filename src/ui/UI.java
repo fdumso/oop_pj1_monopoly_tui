@@ -73,7 +73,6 @@ public class UI {
 
     public void showMessage(String s) {
         System.out.println(s);
-        input.nextLine();
     }
 
     public Instruction getInstruction() {
