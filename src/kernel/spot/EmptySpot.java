@@ -2,15 +2,15 @@ package kernel.spot;
 
 import kernel.Game;
 import kernel.Player;
-import kernel.map.Position;
-import kernel.util.SpotSystem;
+import kernel.Position;
+import kernel.SpotType;
 
 /**
  * Created by freemso on 2016/4/25.
  */
 public class EmptySpot extends AbstractSpot {
     public EmptySpot(int id, String name, Position position) {
-        super(id, name, SpotSystem.Type.EMPTY, position);
+        super(id, name, SpotType.EMPTY, position);
     }
 
     @Override

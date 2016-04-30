@@ -2,10 +2,9 @@ package kernel.card;
 
 import kernel.Game;
 import kernel.Player;
-import kernel.spot.AbstractSpot;
+import kernel.SpotType;
+import kernel.Street;
 import kernel.spot.HouseSpot;
-import kernel.map.Street;
-import kernel.util.SpotSystem;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -17,8 +16,8 @@ public class DemolitionCard extends AbstractCard {
 
     @Override
     public boolean effect(Game game, Player user) {
-        if(user.getPosition().getType() != SpotSystem.Type.HOUSE) {
-            game.getUI().popMessage("你所在的位置不属于任何街道，无法使用拆迁卡！");
+        if(user.getPosition().getType() != SpotType.HOUSE) {
+            game.getUI().showMessage("你所在的位置不属于任何街道，无法使用拆迁卡！");
             return false;
         } else {
             Street street = ((HouseSpot) user.getPosition()).getStreet();

@@ -1,16 +1,10 @@
-package kernel.util;
+package kernel;
 
-import kernel.Game;
-import kernel.Play;
-import kernel.Player;
 import kernel.spot.*;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by freemso on 2016/4/26.
@@ -136,11 +130,52 @@ public class MapSystem {
         for (int i = 1; i <= 10; i++) {
             if (getSpot(playerPositionId + i).hasBarricade()) {
                 hasWarning = true;
-                game.getUI().popMessage("在你前方 " + i + " 步处有路障！");
+                game.getUI().showMessage("在你前方 " + i + " 步处有路障！");
             }
         }
         if (!hasWarning) {
-            game.getUI().popMessage("前方 10 步内未检测到路障");
+            game.getUI().showMessage("前方 10 步内未检测到路障");
+        }
+    }
+
+    public void showSpotInfo(Game game, Player player) {
+        AbstractSpot spot = player.selectSpot(game);
+        SpotType type = spot.getType();
+        switch (type) {
+            case HOUSE: {
+                game.getUI().showMessage("类型：房产\n名称：" + spot.getName() + "\n初始价格：" + ((HouseSpot) spot).getOriginalPrice()
+                        + " 元\n等级：" + ((HouseSpot) spot).getLevel() + " 级\n当前价格：" + ((HouseSpot) spot).calcPrice() + " 元\n拥有者："
+                        + ((HouseSpot) spot).getOwner().getName());
+                break;
+            }
+            case BANK: {
+                game.getUI().showMessage("类型：银行\n名称：" + spot.getName());
+                break;
+            }
+            case EMPTY: {
+                game.getUI().showMessage("类型：空地\n名称：" + spot.getName());
+                break;
+            }
+            case CARD: {
+                game.getUI().showMessage("类型：赠送卡片点\n名称：" + spot.getName());
+                break;
+            }
+            case TICKET: {
+                game.getUI().showMessage("类型：赠送点券点\n名称：" + spot.getName());
+                break;
+            }
+            case LOTTERY: {
+                game.getUI().showMessage("类型：彩票店\n名称：" + spot.getName());
+                break;
+            }
+            case NEWS: {
+                game.getUI().showMessage("类型：新闻点\n名称：" + spot.getName());
+                break;
+            }
+            case STORE: {
+                game.getUI().showMessage("类型：道具店\n名称：" + spot.getName());
+                break;
+            }
         }
     }
 
@@ -153,71 +188,9 @@ public class MapSystem {
     }
 
 
-    public class Position {
-        private int i;
-        private int j;
-
-        public Position(int i, int j) {
-            this.i = i;
-            this.j = j;
-        }
-
-        public int getI() {
-            return i;
-        }
-
-        public int getJ() {
-            return j;
-        }
-
-    }
 
 
-    public class Street {
-        private int id;
-        private String name;
-        private ArrayList<HouseSpot> houseList;
 
-        Street(int id, String name) {
-            this.id = id;
-            this.name = name;
-            this.houseList = new ArrayList<>();
-        }
 
-        public int getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        void addSpot(HouseSpot spot) {
-            houseList.add(spot);
-        }
-
-        public double calcSurcharge(HouseSpot spot) {
-            double surcharge = 0;
-            for (HouseSpot house: houseList) {
-                if (house.getOwner() != spot.getOwner()) {
-                    return 0;
-                } else {
-                    surcharge += house.calcToll();
-                }
-            }
-            return surcharge;
-        }
-
-        public void demolition() {
-            for (HouseSpot house: houseList) {
-                if (house.getOwner() != null) {
-                    Player owner = house.getOwner();
-                    owner.addCash(house.calcPrice() * 1.5);
-                    house.setOwner(null);
-                    owner.removeHouse(house);
-                }
-            }
-        }
-    }
 
 }

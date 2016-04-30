@@ -4,7 +4,6 @@ import kernel.Game;
 import kernel.Player;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -16,7 +15,7 @@ public class AverageRichCard extends AbstractCard {
 
     @Override
     public boolean effect(Game game, Player user) {
-        ArrayList<Player> playerList = game.getPlayerList();
+        ArrayList<Player> playerList = game.getPlayerSystem().getPlayerList();
         double sumCash = 0;
         for (Player player : playerList) {
             sumCash += player.getCash();

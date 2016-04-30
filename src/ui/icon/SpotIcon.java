@@ -1,14 +1,13 @@
 package ui.icon;
 
-import kernel.spot.AbstractSpot;
-import kernel.util.SpotSystem;
+import kernel.SpotType;
 
 /**
  * Created by freemso on 2016/4/25.
  */
 public class SpotIcon extends Icon {
 
-    public SpotIcon(SpotSystem.Type spotType) {
+    public SpotIcon(SpotType spotType) {
         switch (spotType) {
             case BANK: iconText = "银";
                 break;

@@ -3,7 +3,6 @@ package kernel;
 import kernel.card.AbstractCard;
 import kernel.spot.AbstractSpot;
 import kernel.spot.HouseSpot;
-import kernel.util.Option;
 import ui.icon.PlayerIcon;
 
 import java.util.ArrayList;
@@ -209,11 +208,11 @@ public class Player {
 
     public void useCard(Game game) {
         if (cardList.isEmpty()) {
-            game.getUI().popMessage("你没有任何卡片！");
+            game.getUI().showMessage("你没有任何卡片！");
             return;
         }
         int cardNum = cardList.size();
-        ArrayList<Option> optionList = new ArrayList<>();
+        ArrayList<AbstractCard> optionList = new ArrayList<>();
         for (int i = 0; i < cardNum; i++) {
             optionList.add(cardList.get(i));
         }
@@ -255,7 +254,7 @@ public class Player {
 
     public void concede(Game game) {
         if (game.getUI().confirm("你确定要认输吗？")) {
-            game.getUI().popMessage("玩家" + name + "认输！");
+            game.getUI().showMessage("玩家" + name + "认输！");
             bankrupt();
         }
     }

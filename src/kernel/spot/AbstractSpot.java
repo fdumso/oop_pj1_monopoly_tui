@@ -1,10 +1,6 @@
 package kernel.spot;
 
-import kernel.Game;
-import kernel.Player;
-import kernel.map.Position;
-import kernel.util.Option;
-import kernel.util.SpotSystem;
+import kernel.*;
 import ui.icon.Icon;
 import ui.icon.SpotIcon;
 
@@ -14,16 +10,16 @@ import java.util.ArrayList;
 /**
  * Created by freemso on 2016/4/12.
  */
-public abstract class AbstractSpot implements Option {
+public abstract class AbstractSpot {
     private int id;
     private String name;
     protected SpotIcon icon;
     private int barricadeNum;
     ArrayList<Player> containedPlayerList;
-    private SpotSystem.Type type;
+    private SpotType type;
     private Position position;
 
-    protected AbstractSpot(int id, String name, SpotSystem.Type type, Position position) {
+    protected AbstractSpot(int id, String name, SpotType type, Position position) {
         this.position = position;
         this.id = id;
         this.name = name;
@@ -54,7 +50,7 @@ public abstract class AbstractSpot implements Option {
         return icon;
     }
 
-    public SpotSystem.Type getType() {
+    public SpotType getType() {
         return type;
     }
 

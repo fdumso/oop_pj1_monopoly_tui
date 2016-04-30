@@ -3,12 +3,11 @@ package kernel.card;
 import kernel.Game;
 import kernel.Player;
 import ui.icon.Icon;
-import kernel.util.Option;
 
 /**
  * Created by freemso on 2016/4/25.
  */
-public abstract class AbstractCard implements Option {
+public abstract class AbstractCard {
     private String name;
     private int price;
     private Icon icon;
@@ -34,7 +33,6 @@ public abstract class AbstractCard implements Option {
         this.price = price;
     }
 
-    @Override
     public Icon getIcon() {
         return icon;
     }

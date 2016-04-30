@@ -1,12 +1,8 @@
 package kernel.spot;
 
-import kernel.Game;
-import kernel.Player;
-import kernel.map.Position;
-import kernel.map.Street;
-import kernel.util.SpotSystem;
-import ui.icon.Icon;
+import kernel.*;
 import ui.icon.HouseIcon;
+import ui.icon.Icon;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -18,7 +14,7 @@ public class HouseSpot extends AbstractSpot {
     private Street street;
 
     public HouseSpot(int id, String name, double originalPrice, Street street, Position position) {
-        super(id, name, SpotSystem.Type.HOUSE, position);
+        super(id, name, SpotType.HOUSE, position);
         this.originalPrice = originalPrice;
         this.street = street;
         this.level = 1;
@@ -87,7 +83,7 @@ public class HouseSpot extends AbstractSpot {
                     setOwner(player);
                     game.getUI().showMessage("你购买了" + getName());
                 } else {
-                    game.getUI().popMessage("你的现金不够！");
+                    game.getUI().showMessage("你的现金不够！");
                 }
             } else {
                 game.getUI().showMessage("你放弃了购买" + getName());
@@ -103,7 +99,7 @@ public class HouseSpot extends AbstractSpot {
                     game.getUI().showMessage("你已成功将" + getName()
                             + "升至" + getLevel() + "级！");
                 } else {
-                    game.getUI().popMessage("你的现金不够！");
+                    game.getUI().showMessage("你的现金不够！");
                 }
             } else {
                 game.getUI().showMessage("你放弃了升级" + getName());
@@ -111,7 +107,7 @@ public class HouseSpot extends AbstractSpot {
         } else {
             double toll = calcToll();
             Player owner = getOwner();
-            game.getUI().popMessage("这是" + owner.getName() + "的房屋，你需要缴纳过路费 "
+            game.getUI().showMessage("这是" + owner.getName() + "的房屋，你需要缴纳过路费 "
                     + toll + " 元！");
             if (player.getCash() >= toll) {
                 player.subCash(toll);
@@ -123,7 +119,7 @@ public class HouseSpot extends AbstractSpot {
                 if (player.getDeposit() >= toll) {
                     player.subDeposit(toll);
                     owner.addCash(toll);
-                    game.getUI().popMessage("现金不够！已用银行存款支付超出部分的 " + toll + " 元！");
+                    game.getUI().showMessage("现金不够！已用银行存款支付超出部分的 " + toll + " 元！");
                 } else {
                     toll = toll - player.getDeposit();
                     player.setDeposit(0);
@@ -140,7 +136,7 @@ public class HouseSpot extends AbstractSpot {
                         }
                     }
                     if (toll == 0) {
-                        game.getUI().popMessage("你的现金和存款已不足支付过路费！通过变卖房产，你勉强活了下来");
+                        game.getUI().showMessage("你的现金和存款已不足支付过路费！通过变卖房产，你勉强活了下来");
                     } else {
                         player.bankrupt();
                     }

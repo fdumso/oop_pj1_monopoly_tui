@@ -2,15 +2,15 @@ package kernel.spot;
 
 import kernel.Game;
 import kernel.Player;
-import kernel.map.Position;
-import kernel.util.SpotSystem;
+import kernel.Position;
+import kernel.SpotType;
 
 /**
  * Created by freemso on 2016/4/25.
  */
 public class LotterySpot extends AbstractSpot {
     public LotterySpot(int id, String name, Position position) {
-        super(id, name, SpotSystem.Type.LOTTERY, position);
+        super(id, name, SpotType.LOTTERY, position);
     }
 
     @Override

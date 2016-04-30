@@ -1,4 +1,4 @@
-package kernel.util;
+package kernel;
 
 import kernel.card.*;
 
@@ -6,10 +6,6 @@ import kernel.card.*;
  * Created by freemso on 2016/4/30.
  */
 public class CardSystem {
-
-    public enum Type {
-        AVERAGE_RICH, BARRICADE, BUY_HOUSE, CONTROL_DICE, DEMOLITION, RESIDENCE, TURN_AROUND
-    }
 
     public AbstractCard randomCard() {
         int randomNum = (int) (Math.random() * 38);
@@ -34,6 +30,35 @@ public class CardSystem {
         } else {
             // turn around
             return new TurnAroundCard();
+        }
+    }
+
+    public AbstractCard getCard(CardType type) {
+        switch (type) {
+            case AVERAGE_RICH: {
+                return new AverageRichCard();
+            }
+            case BARRICADE: {
+                return new BarricadeCard();
+            }
+            case BUY_HOUSE: {
+                return new BuyHouseCard();
+            }
+            case CONTROL_DICE: {
+                return new ControlDiceCard();
+            }
+            case DEMOLITION: {
+                return new DemolitionCard();
+            }
+            case RESIDENCE: {
+                return new ResidenceCard();
+            }
+            case TURN_AROUND: {
+                return new TurnAroundCard();
+            }
+            default: {
+                return null;
+            }
         }
     }
 }

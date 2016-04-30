@@ -1,27 +1,22 @@
 package kernel;
 
-import kernel.util.*;
-import kernel.util.MapSystem;
-import ui.tui.TUI;
+import ui.UI;
 
 /**
  * Created by freemso on 2016/4/26.
  */
 public class Game {
-    private final double originalCash = 2000;
-    private final double originalDeposit = 2000;
-    private final int originalTicket = 10;
+
 
 
     private MapSystem mapSystem;
     private TimeSystem timeSystem;
     private CardSystem cardSystem;
-    private SpotSystem spotSystem;
     private BankSystem bankSystem;
     private PlayerSystem playerSystem;
 
     private Dice dice;
-    private TUI ui;
+    private UI ui;
 
     private int totalRoundNum;
 
@@ -29,35 +24,25 @@ public class Game {
         playerSystem = new PlayerSystem();
         timeSystem = new TimeSystem();
         cardSystem = new CardSystem();
-        spotSystem = new SpotSystem();
         bankSystem = new BankSystem();
         mapSystem = new MapSystem();
         dice = new Dice();
-        ui = new TUI();
+        ui = new UI();
     }
 
-    public enum Instruction {
-        PRINT_CUR_MAP, PRINT_ORI_MAP, USE_CARD, SHOW_WARNING, SPOT_INFO, PLAYER_INFO, ROLL_DICE, CONCEDE, CHECK_STOCK
-    }
+
 
 
 
     void play() {
-        // init player
-        int playerNumber = ui.inputInt("请输入玩家个数（ 2 - 4 ）：", 2, 4);
-        for (int i = 0; i < playerNumber; i++) {
-            String name = ui.inputStr("请输入玩家 " + (i+1) + " 的昵称：", 2, 10);
-            Player player = new Player(i, name, originalCash, originalDeposit, originalTicket);
-            playerList.add(player);
-            mapSystem.addPlayer(player);
-        }
+        playerSystem.initPlayer(this);
         // init total rounds number
         totalRoundNum = ui.inputInt("请输入总回合数：", 0, 365);
-        // start the game
-        ui.start();
+        // startGame the game
+        ui.startGame();
         for (int round = 0; round < totalRoundNum; round++) {
             ui.showMessage("今天是: " + timeSystem.printDate());
-            for (Player player: playerList) {
+            for (Player player: playerSystem.getPlayerList()) {
                 ui.showMessage("现在是玩家："
                         + player.getName()
                         + " 的操作时间\n"
@@ -75,7 +60,7 @@ public class Game {
     }
 
     public void operate(Player player) {
-        Game.Instruction instruction = ui.getInstruction();
+        Instruction instruction = ui.getInstruction();
         switch (instruction) {
             case PRINT_CUR_MAP: {
                 // print current map
@@ -103,13 +88,13 @@ public class Game {
             }
             case SPOT_INFO: {
                 // show spot info
-                spotSystem.showSpotInfo(this, player);
+                mapSystem.showSpotInfo(this, player);
                 operate(player);
                 break;
             }
             case PLAYER_INFO: {
                 // show player info
-                playerSystem.showPlayerInfo();
+                playerSystem.showPlayerInfo(this);
                 operate(player);
                 break;
             }
@@ -148,7 +133,7 @@ public class Game {
         return dice;
     }
 
-    public TUI getUI() {
+    public UI getUI() {
         return ui;
     }
 
@@ -156,10 +141,17 @@ public class Game {
         return cardSystem;
     }
 
-    public SpotSystem getSpotSystem() {
-        return spotSystem;
+    public PlayerSystem getPlayerSystem() {
+        return playerSystem;
     }
 
+    public TimeSystem getTimeSystem() {
+        return timeSystem;
+    }
+
+    public BankSystem getBankSystem() {
+        return bankSystem;
+    }
 
     /* Write Method*/
 

@@ -2,9 +2,9 @@ package kernel.card;
 
 import kernel.Game;
 import kernel.Player;
+import kernel.SpotType;
 import kernel.spot.AbstractSpot;
 import kernel.spot.HouseSpot;
-import kernel.util.SpotSystem;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -18,15 +18,15 @@ public class BuyHouseCard extends AbstractCard {
     public boolean effect(Game game, Player user) {
         AbstractSpot spot = user.getPosition();
         // check whether the spot that the user is standing on is a house
-        if (spot.getType() != SpotSystem.Type.HOUSE) {
+        if (spot.getType() != SpotType.HOUSE) {
             // it is not a building
-            game.getUI().popMessage("这不是一个房屋，你不能使用购房卡！");
+            game.getUI().showMessage("这不是一个房屋，你不能使用购房卡！");
             return false;
         }
         // check the owner of the house
         if (((HouseSpot) spot).getOwner() == user) {
             // this is the user's house
-            game.getUI().popMessage("这是你自己的房屋，无法再次购买！");
+            game.getUI().showMessage("这是你自己的房屋，无法再次购买！");
             return false;
         }
         double price = ((HouseSpot) spot).calcPrice();
