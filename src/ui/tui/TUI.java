@@ -1,6 +1,8 @@
 package ui.tui;
 
 import kernel.Game;
+import kernel.spot.AbstractSpot;
+import kernel.spot.BankSpot;
 import kernel.util.Option;
 import ui.UI;
 
@@ -152,6 +154,41 @@ public class TUI implements UI {
                 input.nextLine();
             }
         } while (true);
+    }
+
+    @Override
+    public BankSpot.Operation showBankPanel() {
+        showMessage("==========欢迎光临银行==========");
+        int operationId = inputInt("存款业务请输入 0，取款业务请输入 1，离开请输入 -1：", -1, 1);
+        switch (operationId) {
+            case 0: return BankSpot.Operation.DOPOSIT;
+            case 1: return BankSpot.Operation.WITHDRAW;
+            default: return BankSpot.Operation.LEAVE;
+        }
+    }
+
+    public void printOriginalMap(AbstractSpot[][] board) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] != null) {
+                    System.out.print(board[i][j].getIcon().toTextual());
+                } else {
+                    System.out.print(" ");
+                }
+            }
+        }
+    }
+
+    public void printCurrentMap(AbstractSpot[][] board) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] != null) {
+                    System.out.print(board[i][j].printIcon().toTextual());
+                } else {
+                    System.out.print(" ");
+                }
+            }
+        }
     }
 
 }

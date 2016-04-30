@@ -6,7 +6,7 @@ package ui.icon;
 public abstract class Icon {
     protected String iconText;
 
-    public String getIcon() {
+    public String toTextual() {
         return iconText;
     }
 }

@@ -4,6 +4,7 @@ import kernel.Game;
 import kernel.Player;
 import kernel.spot.AbstractSpot;
 import kernel.spot.HouseSpot;
+import kernel.util.SpotSystem;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -15,9 +16,9 @@ public class BuyHouseCard extends AbstractCard {
 
     @Override
     public boolean effect(Game game, Player user) {
-        AbstractSpot spot = game.getMap().getSpot(user.getPosition());
+        AbstractSpot spot = user.getPosition();
         // check whether the spot that the user is standing on is a house
-        if (spot.getType() != AbstractSpot.Type.HOUSE) {
+        if (spot.getType() != SpotSystem.Type.HOUSE) {
             // it is not a building
             game.getUI().popMessage("这不是一个房屋，你不能使用购房卡！");
             return false;

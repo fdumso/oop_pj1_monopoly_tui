@@ -31,10 +31,10 @@ public class Street {
         houseList.add(spot);
     }
 
-    public double calcSurcharge(Player player) {
+    public double calcSurcharge(HouseSpot spot) {
         double surcharge = 0;
         for (HouseSpot house: houseList) {
-            if (house.getOwner() != player) {
+            if (house.getOwner() != spot.getOwner()) {
                 return 0;
             } else {
                 surcharge += house.calcToll();
@@ -44,8 +44,7 @@ public class Street {
     }
 
     public void demolition() {
-        for (HouseSpot house :
-                houseList) {
+        for (HouseSpot house: houseList) {
             if (house.getOwner() != null) {
                 Player owner = house.getOwner();
                 owner.addCash(house.calcPrice() * 1.5);

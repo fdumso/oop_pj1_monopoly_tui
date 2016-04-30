@@ -3,13 +3,15 @@ package kernel.spot;
 import kernel.Game;
 import kernel.Player;
 import kernel.card.AbstractCard;
+import kernel.map.Position;
+import kernel.util.SpotSystem;
 
 /**
  * Created by freemso on 2016/4/25.
  */
 public class CardSpot extends AbstractSpot {
-    public CardSpot(int id, String name) {
-        super(id, name, Type.CARD);
+    public CardSpot(int id, String name, Position position) {
+        super(id, name, SpotSystem.Type.CARD, position);
     }
 
     @Override

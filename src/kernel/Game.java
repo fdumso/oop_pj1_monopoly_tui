@@ -5,6 +5,7 @@ import kernel.util.CardSystem;
 import kernel.spot.AbstractSpot;
 import kernel.spot.HouseSpot;
 import kernel.map.Map;
+import kernel.util.SpotSystem;
 import kernel.util.TimeSystem;
 import kernel.util.Option;
 import ui.UI;
@@ -65,11 +66,12 @@ public class Game {
 
 
     void init() {
+        ((TUI) ui).printOriginalMap(map.getBoard());
         // init player
         int playerNumber = ui.inputInt("请输入玩家个数（ 2 - 4 ）：", 2, 4);
         for (int i = 0; i < playerNumber; i++) {
-            System.out.print("请输入玩家 " + i + " 的昵称：");
-            String name = ui.inputStr("请输入玩家 " + i + " 的昵称：", 0, 10);
+            System.out.print("请输入玩家 " + i+1 + " 的昵称：");
+            String name = ui.inputStr("请输入玩家 " + i+1 + " 的昵称：", 0, 10);
             addPlayer(i, name);
         }
         // init total rounds number
@@ -88,7 +90,7 @@ public class Game {
                         + player.getName()
                         + " 的操作时间\n"
                         + "现在的位置是： "
-                        + map.getSpot(player.getPosition()).getName()
+                        + player.getPosition().getName()
                         + " ，前进方向为："
                         + player.getDirection().toString() + " 。\n");
 
@@ -96,12 +98,12 @@ public class Game {
                 switch (operation) {
                     case PRINT_CUR_MAP: {
                         // print current map
-                        printCurrentMap();
+                        ((TUI) ui).printCurrentMap(map.getBoard());
                         break;
                     }
                     case PRINT_ORI_MAP: {
                         // print original map
-                        printOriginalMap();
+                        ((TUI) ui).printOriginalMap(map.getBoard());
                         break;
                     }
                     case USE_CARD: {
@@ -133,7 +135,7 @@ public class Game {
                     }
                     case ROLL_DICE: {
                         // roll the dice
-                        printCurrentMap();
+                        ((TUI) ui).printCurrentMap(map.getBoard());
                         rollDice(player);
                         break;
                     }
@@ -189,7 +191,7 @@ public class Game {
     /* Write Method*/
 
     private void addPlayer(int playerId, String playerName) {
-        Player player = new Player(playerId, playerName, 0, Player.Direction.CLOCKWISE,
+        Player player = new Player(playerId, playerName, map.getSpot(0), Player.Direction.CLOCKWISE,
                 originalCash, originalDeposit, originalTicket);
         playerList.add(player);
     }
@@ -200,14 +202,14 @@ public class Game {
                 player.clearTrapped();
                 break;
             } else {
-                AbstractSpot outSpot = map.getSpot(player.getPosition());
-                AbstractSpot inSpot = map.getSpot(player.getPosition() + player.getDirection().sign());
+                AbstractSpot outSpot = player.getPosition();
+                AbstractSpot inSpot = map.getSpot(player.getPosition().getId() + player.getDirection().sign());
                 outSpot.stepOut(this, player);
-                player.setPosition(inSpot.getId());
+                player.setPosition(inSpot);
                 inSpot.stepIn(this, player);
             }
         }
-        map.getSpot(player.getPosition()).stay(this, player);
+        player.getPosition().stay(this, player);
     }
 
     public void rollDice(Player player) {
@@ -221,10 +223,10 @@ public class Game {
 
 
     public void showWarning(Player player) {
-        int playerPosition = player.getPosition();
+        int playerPositionId = player.getPosition().getId();
         boolean hasWarning = false;
         for (int i = 1; i <= 10; i++) {
-            if (map.getSpot(playerPosition + i).hasBarricade()) {
+            if (map.getSpot(playerPositionId + i).hasBarricade()) {
                 hasWarning = true;
                 ui.popMessage("在你前方 " + i + " 步处有路障！");
             }
@@ -236,7 +238,7 @@ public class Game {
 
     public void showSpotInfo(Player player) {
         AbstractSpot spot = selectSpot(player);
-        AbstractSpot.Type type = spot.getType();
+        SpotSystem.Type type = spot.getType();
         switch (type) {
             case HOUSE: {
                 ui.popMessage("类型：房产\n名称：" + spot.getName() + "\n初始价格：" + ((HouseSpot) spot).getOriginalPrice()
@@ -297,46 +299,6 @@ public class Game {
                 cardList.remove(optionIndex);
             }
         }
-    }
-
-    private void printOriginalMap() {
-        ui.showMessage("               " + map.getSpot(0).getIcon() + " " + map.getSpot(1).getIcon() + " " + map.getSpot(2).getIcon() + " " + map.getSpot(3).getIcon() + " " + map.getSpot(4).getIcon() + " " + map.getSpot(5).getIcon() + " " + map.getSpot(6).getIcon() + "\n\n"
-                + "               " + map.getSpot(61).getIcon() + " " + "               " + map.getSpot(7).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(60).getIcon() + " " + "               " + map.getSpot(8).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(59).getIcon() + " " + "               " + map.getSpot(9).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(58).getIcon() + " " + "               " + map.getSpot(10).getIcon() + " " + "\n\n"
-                + map.getSpot(52).getIcon() + " " + map.getSpot(53).getIcon() + " " + map.getSpot(54).getIcon() + " " + map.getSpot(55).getIcon() + " " + map.getSpot(56).getIcon() + " " + map.getSpot(57).getIcon() + " " + "               " + map.getSpot(11).getIcon() + " " + map.getSpot(12).getIcon() + " " + map.getSpot(13).getIcon() + " " + map.getSpot(14).getIcon() + " " + map.getSpot(15).getIcon() + " " + map.getSpot(16).getIcon() + " " + "\n\n"
-                + map.getSpot(51).getIcon() + " " + "              " + "                " + "               " + map.getSpot(17).getIcon() + " " + "\n\n"
-                + map.getSpot(50).getIcon() + " " + "              " + "                " + "               " + map.getSpot(18).getIcon() + " " + "\n\n"
-                + map.getSpot(49).getIcon() + " " + "              " + "                " + "               " + map.getSpot(19).getIcon() + " " + "\n\n"
-                + map.getSpot(48).getIcon() + " " + "              " + "                " + "               " + map.getSpot(20).getIcon() + " " + "\n\n"
-                + map.getSpot(47).getIcon() + " " + map.getSpot(46).getIcon() + " " + map.getSpot(45).getIcon() + " " + map.getSpot(44).getIcon() + " " + map.getSpot(43).getIcon() + " " + map.getSpot(42).getIcon() + " " + "               " + map.getSpot(26).getIcon() + " " + map.getSpot(25).getIcon() + " " + map.getSpot(24).getIcon() + " " + map.getSpot(23).getIcon() + " " + map.getSpot(22).getIcon() + " " + map.getSpot(21).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(41).getIcon() + " " + "               " + map.getSpot(27).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(40).getIcon() + " " + "               " + map.getSpot(28).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(39).getIcon() + " " + "               " + map.getSpot(29).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(38).getIcon() + " " + "               " + map.getSpot(30).getIcon() + " " + "\n\n"
-                + "               " + map.getSpot(37).getIcon() + " " + map.getSpot(36).getIcon() + " " + map.getSpot(35).getIcon() + " " + map.getSpot(34).getIcon() + " " + map.getSpot(33).getIcon() + " " + map.getSpot(32).getIcon() + " " + map.getSpot(31).getIcon() + " " + "\n"
-        );
-    }
-
-    private void printCurrentMap() {
-        ui.showMessage("               " + map.getSpot(0).printIcon() + " " + map.getSpot(1).printIcon() + " " + map.getSpot(2).printIcon() + " " + map.getSpot(3).printIcon() + " " + map.getSpot(4).printIcon() + " " + map.getSpot(5).printIcon() + " " + map.getSpot(6).printIcon() + "\n\n"
-                + "               " + map.getSpot(61).printIcon() + " " + "               " + map.getSpot(7).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(60).printIcon() + " " + "               " + map.getSpot(8).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(59).printIcon() + " " + "               " + map.getSpot(9).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(58).printIcon() + " " + "               " + map.getSpot(10).printIcon() + " " + "\n\n"
-                + map.getSpot(52).printIcon() + " " + map.getSpot(53).printIcon() + " " + map.getSpot(54).printIcon() + " " + map.getSpot(55).printIcon() + " " + map.getSpot(56).printIcon() + " " + map.getSpot(57).printIcon() + " " + "               " + map.getSpot(11).printIcon() + " " + map.getSpot(12).printIcon() + " " + map.getSpot(13).printIcon() + " " + map.getSpot(14).printIcon() + " " + map.getSpot(15).printIcon() + " " + map.getSpot(16).printIcon() + " " + "\n\n"
-                + map.getSpot(51).printIcon() + " " + "              " + "                " + "               " + map.getSpot(17).printIcon() + " " + "\n\n"
-                + map.getSpot(50).printIcon() + " " + "              " + "                " + "               " + map.getSpot(18).printIcon() + " " + "\n\n"
-                + map.getSpot(49).printIcon() + " " + "              " + "                " + "               " + map.getSpot(19).printIcon() + " " + "\n\n"
-                + map.getSpot(48).printIcon() + " " + "              " + "                " + "               " + map.getSpot(20).printIcon() + " " + "\n\n"
-                + map.getSpot(47).printIcon() + " " + map.getSpot(46).printIcon() + " " + map.getSpot(45).printIcon() + " " + map.getSpot(44).printIcon() + " " + map.getSpot(43).printIcon() + " " + map.getSpot(42).printIcon() + " " + "               " + map.getSpot(26).printIcon() + " " + map.getSpot(25).printIcon() + " " + map.getSpot(24).printIcon() + " " + map.getSpot(23).printIcon() + " " + map.getSpot(22).printIcon() + " " + map.getSpot(21).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(41).printIcon() + " " + "               " + map.getSpot(27).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(40).printIcon() + " " + "               " + map.getSpot(28).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(39).printIcon() + " " + "               " + map.getSpot(29).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(38).printIcon() + " " + "               " + map.getSpot(30).printIcon() + " " + "\n\n"
-                + "               " + map.getSpot(37).printIcon() + " " + map.getSpot(36).printIcon() + " " + map.getSpot(35).printIcon() + " " + map.getSpot(34).printIcon() + " " + map.getSpot(33).printIcon() + " " + map.getSpot(32).printIcon() + " " + map.getSpot(31).printIcon() + " " + "\n"
-        );
     }
 
     /* TOOOOOOOOOOO    DOOOOOOOOOOOOOOOOOO*/

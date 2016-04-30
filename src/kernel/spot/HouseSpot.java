@@ -2,7 +2,9 @@ package kernel.spot;
 
 import kernel.Game;
 import kernel.Player;
+import kernel.map.Position;
 import kernel.map.Street;
+import kernel.util.SpotSystem;
 import ui.icon.Icon;
 import ui.icon.HouseIcon;
 
@@ -15,8 +17,8 @@ public class HouseSpot extends AbstractSpot {
     private Player owner;
     private Street street;
 
-    public HouseSpot(int id, String name, double originalPrice, Street street) {
-        super(id, name, Type.HOUSE);
+    public HouseSpot(int id, String name, double originalPrice, Street street, Position position) {
+        super(id, name, SpotSystem.Type.HOUSE, position);
         this.originalPrice = originalPrice;
         this.street = street;
         this.level = 1;
@@ -44,7 +46,7 @@ public class HouseSpot extends AbstractSpot {
     }
 
     public double calcToll() {
-        return calcPrice() * 0.3;
+        return calcPrice() * 0.3 + street.calcSurcharge(this);
     }
 
     public double calcUpgradePrice() {

@@ -2,6 +2,7 @@ package kernel;
 
 import kernel.card.AbstractCard;
 import kernel.map.Position;
+import kernel.spot.AbstractSpot;
 import kernel.spot.HouseSpot;
 import ui.icon.PlayerIcon;
 
@@ -17,14 +18,14 @@ public class Player {
     private double cash;
     private double deposit;
     private int ticket;
-    private Position position;
+    private AbstractSpot position;
     private Direction direction;
     private boolean trapped;
     private boolean bankrupt;
     private ArrayList<HouseSpot> houseList;
     private ArrayList<AbstractCard> cardList;
 
-    public Player(int id, String name, Position position, Direction direction, double cash, double deposit, int ticket) {
+    public Player(int id, String name, AbstractSpot position, Direction direction, double cash, double deposit, int ticket) {
         this.id = id;
         this.icon = new PlayerIcon(id);
         this.name = name;
@@ -79,7 +80,7 @@ public class Player {
         return ticket;
     }
 
-    public Position getPosition() {
+    public AbstractSpot getPosition() {
         return position;
     }
 
@@ -121,7 +122,7 @@ public class Player {
         this.icon = icon;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(AbstractSpot position) {
         this.position = position;
     }
 
