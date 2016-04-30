@@ -29,6 +29,7 @@ public abstract class AbstractSpot implements Option {
         this.name = name;
         this.type = type;
         this.icon = new SpotIcon(type);
+        this.containedPlayerList = new ArrayList<>();
     }
 
 
@@ -77,5 +78,13 @@ public abstract class AbstractSpot implements Option {
 
     public void addBarricade() {
         barricadeNum++;
+    }
+
+    public void addPlayer(Player player) {
+        containedPlayerList.add(player);
+    }
+
+    public void removePlayer(Player player) {
+        containedPlayerList.remove(player);
     }
 }

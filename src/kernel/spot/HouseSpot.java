@@ -66,12 +66,12 @@ public class HouseSpot extends AbstractSpot {
 
     @Override
     public void stepIn(Game game, Player player) {
-
+        addPlayer(player);
     }
 
     @Override
     public void stepOut(Game game, Player player) {
-
+        removePlayer(player);
     }
 
     @Override

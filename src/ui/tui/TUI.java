@@ -30,10 +30,10 @@ public class TUI implements UI {
                 if (read >= l && read <= g) {
                     return read;
                 } else {
-                    System.out.print("错误！大小不在范围内");
+                    System.out.print("错误！大小不在范围内，重新输入：");
                 }
             } catch (InputMismatchException e) {
-                System.out.print("错误！需要一个整数");
+                System.out.print("错误！需要一个整数，重新输入：");
                 input.nextLine();
             }
         } while (true);
@@ -46,7 +46,7 @@ public class TUI implements UI {
             try {
                 return input.nextInt();
             } catch (InputMismatchException e) {
-                System.out.print("错误！需要一个整数");
+                System.out.print("错误！需要一个整数，重新输入：");
                 input.nextLine();
             }
         } while (true);
@@ -65,7 +65,7 @@ public class TUI implements UI {
                     throw new InputMismatchException();
                 }
             } catch (InputMismatchException e) {
-                System.out.print("错误！长度不在范围内");
+                System.out.print("错误！长度不在范围内，重新输入：");
             }
         } while (true);
     }
@@ -83,7 +83,7 @@ public class TUI implements UI {
     }
 
     @Override
-    public Game.Operation showMainPanel() {
+    public Game.Instruction getInstruction() {
         int operationId = inputInt("现在可以执行如下操作：\n" + "0 - 查看地图\n"
                 + "1 - 查看原始地图\n" + "2 - 使用道具\n" + "3 - 前方十步内示警\n"
                 + "4 - 查看前后指定步数的具体信息\n" + "5 - 查看玩家的资产信息\n"
@@ -91,31 +91,31 @@ public class TUI implements UI {
                 + "8 - 进入股市\n" + "请选择：", 0, 8);
         switch (operationId) {
             case 0: {
-                return Game.Operation.PRINT_CUR_MAP;
+                return Game.Instruction.PRINT_CUR_MAP;
             }
             case 1: {
-                return Game.Operation.PRINT_ORI_MAP;
+                return Game.Instruction.PRINT_ORI_MAP;
             }
             case 2: {
-                return Game.Operation.USE_CARD;
+                return Game.Instruction.USE_CARD;
             }
             case 3: {
-                return Game.Operation.SHOW_WARNING;
+                return Game.Instruction.SHOW_WARNING;
             }
             case 4: {
-                return Game.Operation.SPOT_INFO;
+                return Game.Instruction.SPOT_INFO;
             }
             case 5: {
-                return Game.Operation.PLAYER_INFO;
+                return Game.Instruction.PLAYER_INFO;
             }
             case 6: {
-                return Game.Operation.ROLL_DICE;
+                return Game.Instruction.ROLL_DICE;
             }
             case 7: {
-                return Game.Operation.CONCEDE;
+                return Game.Instruction.CONCEDE;
             }
             case 8: {
-                return Game.Operation.CHECK_STOCK;
+                return Game.Instruction.CHECK_STOCK;
             }
         }
         return null;
@@ -167,27 +167,29 @@ public class TUI implements UI {
         }
     }
 
-    public void printOriginalMap(AbstractSpot[][] board) {
+    public void printOriMap(AbstractSpot[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] != null) {
                     System.out.print(board[i][j].getIcon().toTextual());
                 } else {
-                    System.out.print(" ");
+                    System.out.print("  ");
                 }
             }
+            System.out.print("\n");
         }
     }
 
-    public void printCurrentMap(AbstractSpot[][] board) {
+    public void printCurMap(AbstractSpot[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] != null) {
                     System.out.print(board[i][j].printIcon().toTextual());
                 } else {
-                    System.out.print(" ");
+                    System.out.print("  ");
                 }
             }
+            System.out.print("\n");
         }
     }
 

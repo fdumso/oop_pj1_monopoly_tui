@@ -15,7 +15,7 @@ public class BarricadeCard extends AbstractCard {
     @Override
     public boolean effect(Game game, Player user) {
         AbstractSpot spot = game.selectSpot(user);
-        if (game.getMap().calcDistance(spot.getId(), user.getPosition().getId()) > 8) {
+        if (game.getMapSystem().calcDistance(spot.getId(), user.getPosition().getId()) > 8) {
             game.getUI().popMessage("不在范围内！请重新选择");
             return effect(game, user);
         }

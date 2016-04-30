@@ -22,7 +22,7 @@ public class TurnAroundCard extends AbstractCard {
                 return false;
             }
             Player target = playerList.get(targetId);
-            if (game.getMap().calcDistance(user.getPosition().getId(), target.getPosition().getId()) <= 5) {
+            if (game.getMapSystem().calcDistance(user.getPosition().getId(), target.getPosition().getId()) <= 5) {
                 target.reverseDirection();
                 game.getUI().showMessage("使用成功，" + target.getName() + "的方向变为" + target.getDirection().toString());
                 return true;

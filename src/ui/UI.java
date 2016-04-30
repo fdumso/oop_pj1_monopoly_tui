@@ -21,7 +21,7 @@ public interface UI {
 
     void showMessage(String description);
 
-    Game.Operation showMainPanel();
+    Game.Instruction getInstruction();
 
     void popMessage(String description);
 

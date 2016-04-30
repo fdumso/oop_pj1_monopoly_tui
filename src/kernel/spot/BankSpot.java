@@ -19,6 +19,7 @@ public class BankSpot extends AbstractSpot {
     }
     @Override
     public void stepIn(Game game, Player player) {
+        addPlayer(player);
         Operation op = game.getUI().showBankPanel();
         double oriCash = player.getCash();
         double oriDeposit = player.getDeposit();
@@ -58,11 +59,13 @@ public class BankSpot extends AbstractSpot {
 
     @Override
     public void stepOut(Game game, Player player) {
-        // do nothing
+        removePlayer(player);
     }
 
     @Override
     public void stay(Game game, Player player) {
         // do nothing
     }
+
+
 }
