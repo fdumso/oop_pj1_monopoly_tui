@@ -44,13 +44,11 @@ public class Street {
     }
 
     public void demolition() {
-        for (HouseSpot house: houseList) {
-            if (house.getOwner() != null) {
-                Player owner = house.getOwner();
-                owner.addCash(house.calcPrice() * 1.5);
-                house.setOwner(null);
-                owner.removeHouse(house);
-            }
-        }
+        houseList.stream().filter(house -> house.getOwner() != null).forEach(house -> {
+            Player owner = house.getOwner();
+            owner.addCash(house.calcPrice() * 1.5);
+            house.setOwner(null);
+            owner.removeHouse(house);
+        });
     }
 }

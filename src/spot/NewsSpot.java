@@ -1,9 +1,9 @@
 package spot;
 
-import util.Game;
-import player.Player;
-import util.Position;
 import card.AbstractCard;
+import player.Player;
+import util.Game;
+import util.Position;
 
 /**
  * Created by freemso on 2016/4/25.

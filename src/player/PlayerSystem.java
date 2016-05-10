@@ -81,12 +81,10 @@ public class PlayerSystem {
             if (!p.isBankrupt()) count++;
         }
         if (count == 1) {
-            for (Player p: playerList) {
-                if (!p.isBankrupt()) {
-                    game.getUI().showMessage("游戏结束！\n" + p.getName() + "获得胜利");
-                    System.exit(0);
-                }
-            }
+            playerList.stream().filter(p -> !p.isBankrupt()).forEach(p -> {
+                game.getUI().showMessage("游戏结束！\n" + p.getName() + "获得胜利");
+                System.exit(0);
+            });
         }
     }
 

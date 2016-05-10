@@ -1,7 +1,7 @@
 package stock;
 
-import util.Game;
 import player.Player;
+import util.Game;
 
 import java.util.ArrayList;
 
@@ -100,7 +100,7 @@ public class StockSystem {
         }
     }
 
-    public void fluc() {
+    public void fluctuate() {
         for (Stock stock: stockList) {
             stock.fluc();
         }

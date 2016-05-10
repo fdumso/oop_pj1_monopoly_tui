@@ -1,10 +1,10 @@
 package card;
 
-import util.Game;
 import player.Player;
-import spot.SpotType;
 import spot.AbstractSpot;
 import spot.HouseSpot;
+import spot.SpotType;
+import util.Game;
 
 /**
  * Created by freemso on 2016/4/25.

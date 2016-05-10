@@ -23,8 +23,6 @@ public class Game {
     private Dice dice;
     private UI ui;
 
-    private int totalRoundNum;
-
     public Game() {
         playerSystem = new PlayerSystem();
         timeSystem = new TimeSystem();
@@ -37,14 +35,10 @@ public class Game {
         ui = new UI();
     }
 
-
-
-
-
     public void play() {
         playerSystem.initPlayer(this);
         // init total rounds number
-        totalRoundNum = ui.inputInt("请输入总回合数：", 0, 365);
+        int totalRoundNum = ui.inputInt("请输入总回合数：", 0, 365);
         // startGame the game
         ui.startGame();
         for (int round = 0; round < totalRoundNum; round++) {
@@ -65,13 +59,13 @@ public class Game {
                 bankSystem.payInterest(this);
                 lotterySystem.open(this);
             }
-            stockSystem.fluc();
+            stockSystem.fluctuate();
             timeSystem.addDay();
         }
-        timeup();
+        timeout();
     }
 
-    private void timeup() {
+    private void timeout() {
         ui.showMessage("时间到，游戏结束");
         Player winner = playerSystem.maxCapitalPlayer();
         ui.showMessage(winner.getName() + "获得胜利");
@@ -163,14 +157,6 @@ public class Game {
 
     public PlayerSystem getPlayerSystem() {
         return playerSystem;
-    }
-
-    public TimeSystem getTimeSystem() {
-        return timeSystem;
-    }
-
-    public BankSystem getBankSystem() {
-        return bankSystem;
     }
 
     public LotterySystem getLotterySystem() {

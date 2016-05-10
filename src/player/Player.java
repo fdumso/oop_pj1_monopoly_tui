@@ -1,10 +1,10 @@
 package player;
 
-import util.Game;
 import card.AbstractCard;
+import icon.PlayerIcon;
 import spot.AbstractSpot;
 import spot.HouseSpot;
-import icon.PlayerIcon;
+import util.Game;
 
 import java.util.ArrayList;
 
@@ -216,15 +216,11 @@ public class Player {
             game.getUI().showMessage("你没有任何卡片！");
             return;
         }
-        int cardNum = cardList.size();
         ArrayList<AbstractCard> optionList = new ArrayList<>();
-        for (int i = 0; i < cardNum; i++) {
-            optionList.add(cardList.get(i));
-        }
+        optionList.addAll(cardList);
         int optionIndex = game.getUI().select("请选择你想使用的卡片", optionList);
         if (optionIndex == -1) {
             game.getUI().showMessage("放弃使用");
-            return;
         } else {
             boolean cardUsed = cardList.get(optionIndex).effect(game, this);
             if (cardUsed) {

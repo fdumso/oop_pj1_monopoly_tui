@@ -94,14 +94,6 @@ public class MapSystem {
         return spotList.get(spotId % spotList.size());
     }
 
-    public Street getStreet(int streetId) {
-        return streetList.get(streetId % streetList.size());
-    }
-
-    public AbstractSpot[][] getBoard() {
-        return board;
-    }
-
     public int calcDistance(int p1, int p2) {
         if (p1 > p2) {
             int d1 = p1 - p2;

@@ -1,8 +1,8 @@
 package card;
 
-import util.Game;
-import player.Player;
 import icon.Icon;
+import player.Player;
+import util.Game;
 
 /**
  * Created by freemso on 2016/4/25.
@@ -29,17 +29,6 @@ public abstract class AbstractCard {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public Icon getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Icon icon) {
-        this.icon = icon;
-    }
 
     public abstract boolean effect(Game game, Player user);
 }

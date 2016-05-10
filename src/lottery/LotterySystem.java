@@ -1,7 +1,7 @@
 package lottery;
 
-import util.Game;
 import player.Player;
+import util.Game;
 
 import java.util.ArrayList;
 
@@ -29,11 +29,9 @@ public class LotterySystem {
     public void open(Game game) {
         int number = (int) (Math.random() * 101);
         game.getUI().showMessage("彩票开奖！中奖号码为 " + number);
-        for (Lottery lottery: lotteryList) {
-            if (lottery.getNumber() == number) {
-                game.getUI().showMessage("有人中奖！玩家" + lottery.getOwner().getName() + "中奖啦！奖金 10000 元！");
-                lottery.getOwner().addCash(10000);
-            }
-        }
+        lotteryList.stream().filter(lottery -> lottery.getNumber() == number).forEach(lottery -> {
+            game.getUI().showMessage("有人中奖！玩家" + lottery.getOwner().getName() + "中奖啦！奖金 10000 元！");
+            lottery.getOwner().addCash(10000);
+        });
     }
 }

@@ -1,10 +1,10 @@
 package spot;
 
+import icon.Icon;
+import icon.SpotIcon;
 import player.Player;
 import util.Game;
 import util.Position;
-import icon.Icon;
-import icon.SpotIcon;
 
 import java.util.ArrayList;
 

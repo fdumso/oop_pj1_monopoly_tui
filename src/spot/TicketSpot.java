@@ -1,7 +1,7 @@
 package spot;
 
-import util.Game;
 import player.Player;
+import util.Game;
 import util.Position;
 
 /**

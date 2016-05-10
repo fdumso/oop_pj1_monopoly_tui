@@ -14,10 +14,6 @@ public class Dice {
         return point;
     }
 
-    public int getPoint() {
-        return point;
-    }
-
     public void setPoint(int point) {
         isControlled = true;
         this.point = point;

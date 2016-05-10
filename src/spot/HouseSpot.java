@@ -1,11 +1,11 @@
 package spot;
 
+import icon.HouseIcon;
+import icon.Icon;
 import player.Player;
 import util.Game;
 import util.Position;
 import util.Street;
-import icon.HouseIcon;
-import icon.Icon;
 
 /**
  * Created by freemso on 2016/4/25.
