@@ -16,7 +16,7 @@ public abstract class AbstractSpot {
     private int id;
     private String name;
     protected SpotIcon icon;
-    private int barricadeNum;
+    private boolean hasBarricade;
     ArrayList<Player> containedPlayerList;
     private SpotType type;
     private Position position;
@@ -61,7 +61,7 @@ public abstract class AbstractSpot {
     }
 
     public boolean hasBarricade() {
-        return barricadeNum != 0;
+        return hasBarricade;
     }
 
     public Icon printIcon() {
@@ -75,7 +75,7 @@ public abstract class AbstractSpot {
     /* Write Method */
 
     public void addBarricade() {
-        barricadeNum++;
+        hasBarricade = true;
     }
 
     public void addPlayer(Player player) {

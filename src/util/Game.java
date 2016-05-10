@@ -1,6 +1,8 @@
 package util;
 
+import card.AbstractCard;
 import card.CardSystem;
+import card.CardType;
 import lottery.LotterySystem;
 import player.Player;
 import player.PlayerSystem;
@@ -37,6 +39,15 @@ public class Game {
 
     public void play() {
         playerSystem.initPlayer(this);
+        for (Player p: playerSystem.getPlayerList()) {
+            p.addCard(cardSystem.getCard(CardType.AVERAGE_RICH));
+            p.addCard(cardSystem.getCard(CardType.BARRICADE));
+            p.addCard(cardSystem.getCard(CardType.BUY_HOUSE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.DEMOLITION));
+            p.addCard(cardSystem.getCard(CardType.RESIDENCE));
+            p.addCard(cardSystem.getCard(CardType.TURN_AROUND));
+        }
         // init total rounds number
         int totalRoundNum = ui.inputInt("请输入总回合数：", 0, 365);
         // startGame the game
@@ -130,7 +141,6 @@ public class Game {
 
 
     public void rollDice(Player player) {
-        mapSystem.printCurMap(this);
         int dicePoint = dice.roll();
         ui.showMessage("你掷得的点数为：" + dicePoint);
         player.move(this, dicePoint);

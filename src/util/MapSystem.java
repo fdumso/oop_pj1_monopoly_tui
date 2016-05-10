@@ -138,7 +138,7 @@ public class MapSystem {
             case HOUSE: {
                 game.getUI().showMessage("类型：房产\n名称：" + spot.getName() + "\n初始价格：" + ((HouseSpot) spot).getOriginalPrice()
                         + " 元\n等级：" + ((HouseSpot) spot).getLevel() + " 级\n当前价格：" + ((HouseSpot) spot).calcPrice() + " 元\n拥有者："
-                        + ((HouseSpot) spot).getOwner().getName());
+                        + ((((HouseSpot) spot).getOwner() == null) ? "无主" : ((HouseSpot) spot).getOwner().getName()));
                 break;
             }
             case BANK: {
