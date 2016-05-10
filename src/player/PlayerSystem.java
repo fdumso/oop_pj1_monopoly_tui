@@ -74,7 +74,20 @@ public class PlayerSystem {
         return temp;
     }
 
-    public void removePlayer(Player p) {
-        playerList.remove(p);
+    public void bankrupt(Game game, Player player) {
+        player.bankrupt();
+        int count = 0;
+        for (Player p: playerList) {
+            if (!p.isBankrupt()) count++;
+        }
+        if (count == 1) {
+            for (Player p: playerList) {
+                if (!p.isBankrupt()) {
+                    game.getUI().showMessage("游戏结束！\n" + p.getName() + "获得胜利");
+                    System.exit(0);
+                }
+            }
+        }
     }
+
 }

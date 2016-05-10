@@ -261,7 +261,7 @@ public class Player {
     public void concede(Game game) {
         if (game.getUI().confirm("你确定要认输吗？")) {
             game.getUI().showMessage("玩家" + name + "认输！");
-            bankrupt();
+            game.getPlayerSystem().bankrupt(game, this);
         }
     }
 }

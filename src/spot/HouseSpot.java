@@ -142,7 +142,7 @@ public class HouseSpot extends AbstractSpot {
                     if (toll == 0) {
                         game.getUI().showMessage("你的现金和存款已不足支付过路费！通过变卖房产，你勉强活了下来");
                     } else {
-                        player.bankrupt();
+                        game.getPlayerSystem().bankrupt(game, player);
                     }
                 }
             }

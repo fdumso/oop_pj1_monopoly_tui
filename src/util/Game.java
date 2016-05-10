@@ -51,6 +51,7 @@ public class Game {
             ui.showMessage("今天是: " + timeSystem.printDate());
             mapSystem.printCurMap(this);
             for (Player player: playerSystem.getPlayerList()) {
+                if (player.isBankrupt()) break;
                 ui.showMessage("现在是玩家："
                         + player.getName()
                         + " 的操作时间\n"
@@ -59,15 +60,6 @@ public class Game {
                         + " ，前进方向为："
                         + player.getDirection().toString() + " 。\n");
                 operate(player);
-            }
-            for (Player player: playerSystem.getPlayerList()) {
-                if (player.isBankrupt()) {
-                    playerSystem.removePlayer(player);
-                }
-            }
-            if (playerSystem.getPlayerList().size() == 1) {
-                ui.showMessage("游戏结束！\n" + playerSystem.getPlayerList().get(0).getName() + "获得胜利");
-                break;
             }
             if (timeSystem.isEndOfTheMonth()) {
                 bankSystem.payInterest(this);
