@@ -34,20 +34,20 @@ public class BankSpot extends AbstractSpot {
                             + oriDeposit + "元增加到"
                             + player.getDeposit()
                             + "元\n" + "存款业务已完成！");
-                    stepIn(game, player);
+                    continue loop;
                 }
                 case 1: {
                     int amount = game.getUI().inputInt("输入你想要取出的现金数目<0-"
                             + player.getDeposit() + ">：", 0, (int) player.getDeposit());
                     player.subDeposit(amount);
-                    player.subCash(amount);
+                    player.addCash(amount);
                     game.getUI().showMessage("你的现金从" + oriCash
                             + "元增加到" + player.getCash()
                             + "元\n" + "您的存款从"
                             + oriDeposit + "元减少到"
                             + player.getDeposit()
                             + "元\n" + "您的取款业务已经完成！");
-                    stepIn(game, player);
+                    continue loop;
                 }
                 default: {
                     game.getUI().showMessage("谢谢你的光临，下次再见！");

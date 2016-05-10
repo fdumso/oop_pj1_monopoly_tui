@@ -39,22 +39,30 @@ public class Game {
 
     public void play() {
         playerSystem.initPlayer(this);
+        // ===============this is for test==================
         for (Player p: playerSystem.getPlayerList()) {
             p.addCard(cardSystem.getCard(CardType.AVERAGE_RICH));
             p.addCard(cardSystem.getCard(CardType.BARRICADE));
             p.addCard(cardSystem.getCard(CardType.BUY_HOUSE));
             p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
+            p.addCard(cardSystem.getCard(CardType.CONTROL_DICE));
             p.addCard(cardSystem.getCard(CardType.DEMOLITION));
             p.addCard(cardSystem.getCard(CardType.RESIDENCE));
             p.addCard(cardSystem.getCard(CardType.TURN_AROUND));
         }
+        // ================this is for test==================
         // init total rounds number
         int totalRoundNum = ui.inputInt("请输入总回合数：", 0, 365);
         // startGame the game
         ui.startGame();
         for (int round = 0; round < totalRoundNum; round++) {
             ui.showMessage("今天是: " + timeSystem.printDate());
-            mapSystem.printCurMap(this);
             for (Player player: playerSystem.getPlayerList()) {
                 if (player.isBankrupt()) break;
                 ui.showMessage("现在是玩家："

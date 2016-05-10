@@ -76,11 +76,11 @@ public class Player {
     }
 
     public double getCash() {
-        return cash;
+        return ((int) cash * 100) / 100;
     }
 
     public double getDeposit() {
-        return deposit;
+        return ((int) deposit * 100) / 100;
     }
 
     public int getTicket() {
@@ -96,7 +96,7 @@ public class Player {
     }
 
     public double getCapital() {
-        return cash + deposit + getHouseValue();
+        return ((int) (cash + deposit + getHouseValue()) * 100) / 100;
     }
 
     public double getHouseValue() {
@@ -104,7 +104,7 @@ public class Player {
         for (HouseSpot house: houseList) {
             houseValue += house.calcPrice();
         }
-        return houseValue;
+        return ((int) houseValue * 100) / 100;
     }
 
     public ArrayList<HouseSpot> getHouseList() {
@@ -251,7 +251,6 @@ public class Player {
             }
         }
         position.stay(game, this);
-        game.getMapSystem().printCurMap(game);
     }
 
     public void concede(Game game) {
