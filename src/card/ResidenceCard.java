@@ -14,7 +14,7 @@ public class ResidenceCard extends AbstractCard {
     @Override
     public boolean effect(Game game, Player user) {
         game.getUI().showMessage("你使用了滞留卡，停留原地一回合");
-        game.getDice().setPoint(0);
+        user.setResident(true);
         return true;
     }
 }

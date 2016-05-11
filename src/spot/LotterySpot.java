@@ -18,11 +18,6 @@ public class LotterySpot extends AbstractSpot {
     }
 
     @Override
-    public void stepOut(Game game, Player player) {
-        removePlayer(player);
-    }
-
-    @Override
     public void stay(Game game, Player player) {
         if (game.getUI().confirm("你来到了" + getName() + "，是否花 100 元购买彩票？")) {
             do {

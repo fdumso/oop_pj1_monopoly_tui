@@ -20,11 +20,6 @@ public class StoreSpot extends AbstractSpot {
     }
 
     @Override
-    public void stepOut(Game game, Player player) {
-        removePlayer(player);
-    }
-
-    @Override
     public void stay(Game game, Player player) {
         game.getUI().showMessage("==========欢迎光临道具店==========");
         loop: do {

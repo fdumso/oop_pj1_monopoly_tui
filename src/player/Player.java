@@ -20,8 +20,8 @@ public class Player {
     private int ticket;
     private AbstractSpot position;
     private Direction direction;
-    private boolean trapped;
     private boolean bankrupt;
+    private boolean resident;
     private ArrayList<HouseSpot> houseList;
     private ArrayList<AbstractCard> cardList;
     private int[] stockList;
@@ -35,7 +35,6 @@ public class Player {
         this.ticket = ticket;
         this.houseList = new ArrayList<>();
         this.cardList = new ArrayList<>();
-        this.trapped = false;
         this.bankrupt = false;
         this.stockList = new int[10];
     }
@@ -115,10 +114,6 @@ public class Player {
         return cardList;
     }
 
-    boolean isTrapped() {
-        return trapped;
-    }
-
     public boolean isBankrupt() {
         return bankrupt;
     }
@@ -127,11 +122,15 @@ public class Player {
         return stockList;
     }
 
-/* Write Method*/
-
-    public void setIcon(PlayerIcon icon) {
-        this.icon = icon;
+    public boolean isResident() {
+        return resident;
     }
+
+    public void setResident(boolean resident) {
+        this.resident = resident;
+    }
+
+    /* Write Method*/
 
     public void setPosition(AbstractSpot position) {
         this.position = position;
@@ -151,14 +150,6 @@ public class Player {
 
     public void addCard(AbstractCard card) {
         cardList.add(card);
-    }
-
-    public void setTrapped() {
-        this.trapped = true;
-    }
-
-    void clearTrapped() {
-        this.trapped = false;
     }
 
     public void addDeposit(double amount) {
@@ -238,16 +229,19 @@ public class Player {
 
 
     public void move(Game game, int steps) {
-        for (int i = 0; i < steps; i++) {
-            if (trapped) {
-                trapped = false;
-                break;
-            } else {
+        if (isResident()) {
+            game.getUI().showMessage("你滞留原地一回合");
+            setResident(false);
+        } else {
+            for (int i = 0; i < steps; i++) {
                 AbstractSpot outSpot = position;
                 AbstractSpot inSpot = game.getMapSystem().getSpot(position.getId() + direction.sign());
-                outSpot.stepOut(game, this);
-                position = inSpot;
-                inSpot.stepIn(game, this);
+                if (outSpot.stepOut(game, this)) {
+                    position = inSpot;
+                    inSpot.stepIn(game, this);
+                } else {
+                    break;
+                }
             }
         }
         position.stay(game, this);

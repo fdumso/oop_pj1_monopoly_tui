@@ -58,11 +58,6 @@ public class BankSpot extends AbstractSpot {
     }
 
     @Override
-    public void stepOut(Game game, Player player) {
-        removePlayer(player);
-    }
-
-    @Override
     public void stay(Game game, Player player) {
         game.getUI().showMessage("你停留在了" + getName());
     }

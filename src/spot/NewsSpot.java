@@ -19,11 +19,6 @@ public class NewsSpot extends AbstractSpot {
     }
 
     @Override
-    public void stepOut(Game game, Player player) {
-        removePlayer(player);
-    }
-
-    @Override
     public void stay(Game game, Player player) {
         int newsId = (int) (Math.random() * 5);
         switch (newsId) {

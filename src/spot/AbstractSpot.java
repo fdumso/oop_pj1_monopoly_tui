@@ -34,7 +34,15 @@ public abstract class AbstractSpot {
 
     public abstract void stepIn(Game game, Player player);
 
-    public abstract void stepOut(Game game, Player player);
+    public boolean stepOut(Game game, Player player) {
+        if (this.hasBarricade()) {
+            game.getUI().showMessage("你被路障拦住，停留在了" + name);
+            clearBarricade();
+            return false;
+        }
+        removePlayer(player);
+        return true;
+    }
 
     public abstract void stay(Game game, Player player);
 
@@ -76,6 +84,10 @@ public abstract class AbstractSpot {
 
     public void addBarricade() {
         hasBarricade = true;
+    }
+
+    public void clearBarricade() {
+        hasBarricade = false;
     }
 
     public void addPlayer(Player player) {

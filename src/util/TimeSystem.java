@@ -14,7 +14,7 @@ public class TimeSystem {
 
     public TimeSystem() {
         format = new SimpleDateFormat("yyyy-MM-dd");
-        calendar = new GregorianCalendar();
+        calendar = new GregorianCalendar(2016, 4, 29);
     }
 
     public String printDate() {
